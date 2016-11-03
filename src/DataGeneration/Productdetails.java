@@ -6,6 +6,12 @@ public class Productdetails {
 	
 	double price;
 	String produnit,cgid;
+	int fpid;
+	
+	public Productdetails()
+	{
+		this.fpid=Idgen.pid();
+	}
 	
 	public void setprice(double price)
 	{

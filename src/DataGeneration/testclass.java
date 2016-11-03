@@ -11,7 +11,7 @@ public class testclass {
 Customerdetails c=new Customerdetails();
 Customerdetails c1=new Customerdetails();
 
-c.setname("boss");
+
 c.setfaddress("southstreet");
 c.setphone("9003203629");
 c.setemail("bhash@gmail.com");
@@ -21,7 +21,9 @@ c1.setfaddress("southstreet23");
 c1.setphone("9003290629");
 c1.setemail("bhashjwh@gmail.com");
 c1.zipset(12395);
-//hey work
+orderdetails j=new orderdetails();
+String p=j.getorderdate();
+System.out.println(p);
 dc.add(c);
 dc.add(c1);
 for(Customerdetails f:dc)
