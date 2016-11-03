@@ -8,9 +8,12 @@ public class orderdetails {
 	 int id;
 	 int poid;
 	 double amount;
+	 String date1;
+	 String date2;
 	 
 	public orderdetails()
 	{
+		this.date1=Idgen.getorderdate();
 		this.id=Idgen.oid();
 	}
 	public void setpoid(int ind)
@@ -29,21 +32,17 @@ public double getamount()
 {
 	return this.amount;
 }
+
 public String getorderdate()
 {
-	DateFormat df = new SimpleDateFormat("yyyyMMdd ");
-	Date dateobj = new Date();
-	return df.format(dateobj);
-}
-public String getplannedorderdate()
-{
-	DateFormat df = new SimpleDateFormat("yyyyMMdd ");
-	Date dateobj = new Date();
-	
-	return "";
+	return this.date1;
 }
 
-	
+public String getdeliverydate()
+{
+	return this.date2;
+}
+
 }
 
 

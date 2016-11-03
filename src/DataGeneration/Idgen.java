@@ -1,5 +1,9 @@
 package DataGeneration;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Idgen {
 	static int counter =0;
 	static int counterc=0;
@@ -26,5 +30,10 @@ public class Idgen {
 		counterp++;
 		return counterp;
 	}
-
+	public static String getorderdate()
+	{
+		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
+		Date dateobj = new Date();
+		return df.format(dateobj);
+	}
 }
