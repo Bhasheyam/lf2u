@@ -1,9 +1,10 @@
 package dataList.copy;
-import org.json.simple.JSONObject;
+import java.util.ArrayList;
+import DataGeneration.*;
 
 public class Farmerlist {
 	
-public static ArrayList<>  farmer=new ArrayList();
+public static ArrayList<Farmerdata>  farmer=new ArrayList();
 	public Farmerlist()
 	{
 		

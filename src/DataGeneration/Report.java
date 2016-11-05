@@ -14,4 +14,5 @@ public int getid(int in)
 		return s[n1+1];
 	
 }
+	
 }
