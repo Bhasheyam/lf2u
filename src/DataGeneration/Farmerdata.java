@@ -1,86 +1,61 @@
 package DataGeneration;
 
 public class Farmerdata {
-	String fn;
-	String n;
-	String fadd;
-	String email;
-    String ph,fph;
-    int [] zip;
-    int farmid;
-    double charge;
+
+    private int fid;
+
+    private String[] delivers_to;
+
+    private Personal_info personal_info;
+    
+    private double delivery_charge;
+
+    private Farm_info farm_info;
     public Farmerdata()
     {
-    	this.farmid=Idgen.fid();
+    	this.fid=Idgen.fid();
     }
-    public double getcharges()
-	{
-		return charge;
-	}
-	
-public void setname(String name)
-{
-	this.n=name;
-}
-public void setfname(String fname)
-{
-	this.fn=fname;
-}
-public void setfaddress(String add)
-{
-	this.fadd=add;
-}
-public void setfphone(String phn)
-{
-	this.fph=phn;
-}
-public void setemail(String em)
-{
-	this.email=em;
-}
-public void setphone(String phn)
-{
-	this.ph=phn;
-}
 
-public void zipset(int[] z)
-{
-this.zip=z;
+    public int getfid()
+    {
+    	return this.fid;
+    }
 
-}
+    public String[] getDelivers_to ()
+    {
+        return delivers_to;
+    }
 
-public String getfname()
-{
-	return this.fn;
-}
-public String getfmname()
-{
-	return this.n;
-}
+    public void setDelivers_to (String[] delivers_to)
+    {
+        this.delivers_to = delivers_to;
+    }
 
-public String getemail()
-{
-	return this.email;
-}
-public String getphonenumber()
-{
-	return this.ph;
-}
-public String getfphonenumber()
-{
-	return this.fph;
-}
-public int[]  getfzip()
-{
-	return zip;
-}
-public int getfid()
-{
-	return this.farmid;
-}
-public void setcharge(double cha)
-{
-	this.charge=cha;
-}
+    public Personal_info getPersonal_info ()
+    {
+        return personal_info;
+    }
 
+    public void setPersonal_info (Personal_info personal_info)
+    {
+        this.personal_info = personal_info;
+    }
+
+    public Farm_info getFarm_info ()
+    {
+        return farm_info;
+    }
+
+    public void setFarm_info (Farm_info farm_info)
+    {
+        this.farm_info = farm_info;
+    }
+    public double get_Delivery()
+    {
+    	return this.delivery_charge;
+    }
+    public void setdeliverycharges(double d)
+    {
+    	this.delivery_charge=d;
+    }
 }

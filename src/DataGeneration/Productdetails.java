@@ -2,41 +2,96 @@ package DataGeneration;
 
 public class Productdetails {
 	
+     int fspid;
+	 private String end_date;
 
-	
-	double price;
-	String produnit,cgid;
-	int fpid;
-	
-	public Productdetails()
-	{
-		this.fpid=Idgen.pid();
-	}
-	
-	public void setprice(double price)
-	{
-		this.price=price;
-	}
-	public void setprodunit(String produnit)
-	{
-		this.produnit=produnit;
-	}
-	public void setcgid(String cgid)
-	{
-		this.cgid=cgid;
-	}
-	
-	public String getprodunit()
-	{
-		return produnit;
-	}
-	public String getunit()
-	{
-		return cgid;
-	}
-	public double getprodprice()
-	{
-		return price;
-		
-	}
+	    private String price;
+
+	    private String gcpid;
+
+	    private String image;
+
+	    private String start_date;
+
+	    private String product_unit;
+
+	    private String note;
+	    public Productdetails()
+	    {
+	    	this.fspid=Idgen.pid();
+	    }
+
+	    public int getfspid()
+	    {
+	    	return this.fspid;
+	    }
+	    public String getEnd_date ()
+	    {
+	        return end_date;
+	    }
+
+	    public void setEnd_date (String end_date)
+	    {
+	        this.end_date = end_date;
+	    }
+
+	    public String getPrice ()
+	    {
+	        return price;
+	    }
+
+	    public void setPrice (String price)
+	    {
+	        this.price = price;
+	    }
+
+	    public String getGcpid ()
+	    {
+	        return gcpid;
+	    }
+
+	    public void setGcpid (String gcpid)
+	    {
+	        this.gcpid = gcpid;
+	    }
+
+	    public String getImage ()
+	    {
+	        return image;
+	    }
+
+	    public void setImage (String image)
+	    {
+	        this.image = image;
+	    }
+
+	    public String getStart_date ()
+	    {
+	        return start_date;
+	    }
+
+	    public void setStart_date (String start_date)
+	    {
+	        this.start_date = start_date;
+	    }
+
+	    public String getProduct_unit ()
+	    {
+	        return product_unit;
+	    }
+
+	    public void setProduct_unit (String product_unit)
+	    {
+	        this.product_unit = product_unit;
+	    }
+
+	    public String getNote ()
+	    {
+	        return note;
+	    }
+
+	    public void setNote (String note)
+	    {
+	        this.note = note;
+	    }
 }

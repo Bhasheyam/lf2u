@@ -2,60 +2,76 @@ package DataGeneration;
 
 public class Customerdetails {
 	
-	String n;
-	String street;
-	String email;
-    String ph;
-    int  zip;
-	int id;
-	public Customerdetails()
+	
+	
+	
+	private String zip;
+	private int id;
+
+    private String phone;
+
+    private String email;
+
+    private String street;
+
+    private String name;
+
+    public String getZip ()
+    {
+        return zip;
+    }
+    public Customerdetails()
 	{
 		this.id=Idgen.fid();
 	}
-	
-public void setname(String name)
-{
-	this.n=name;
-}
-public void setfaddress(String str)
-{
-	this.street=str;
-}
+    public int getcid()
+    {
+    	return this.id;
+    }
+    
+    public void setZip (String zip)
+    {
+        this.zip = zip;
+    }
 
-public void setemail(String em)
-{
-	this.email=em;
-}
-public void setphone(String phn)
-{
-	this.ph=phn;
-}
+    public String getPhone ()
+    {
+        return phone;
+    }
 
-public void zipset(int z)
-{
-this.zip=z;
+    public void setPhone (String phone)
+    {
+        this.phone = phone;
+    }
 
-}
+    public String getEmail ()
+    {
+        return email;
+    }
 
-public String getcname() {
-	return this.n;
-}
+    public void setEmail (String email)
+    {
+        this.email = email;
+    }
 
-public int cgetid()
-{
-	return this.id;
-}
-public String getcphoine() {
-	return this.ph;
-}
-public int getzip() {
-	return this.zip;
-}
-public String getemail() {
-	return this.email;
-}
-public String getstreet() {
-	return this.street;
-}
+    public String getStreet ()
+    {
+        return street;
+    }
+
+    public void setStreet (String street)
+    {
+        this.street = street;
+    }
+
+    public String getName ()
+    {
+        return name;
+    }
+
+    public void setName (String name)
+    {
+        this.name = name;
+    }
 
 }
