@@ -20,21 +20,7 @@ Customerdetails c=new Customerdetails();
 Customerdetails c1=new Customerdetails();
 
 
-order d=new order();
-String s1,s2;
-s1=d.getorderdate();
-s2=d.getdeliverydate();
-System.out.println(s1);
-System.out.println(s2);
-c.setfaddress("southstreet");
-c.setphone("9003203629");
-c.setemail("bhash@gmail.com");
-c.zipset(12345);
-c1.setname("boss1");
-c1.setfaddress("southstreet23");
-c1.setphone("9003290629");
-c1.setemail("bhashjwh@gmail.com");
-c1.zipset(12395);
+5);
 order j=new order();
 String p=j.getorderdate();
 System.out.println(p);

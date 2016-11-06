@@ -1,11 +1,13 @@
 package DataGeneration;
 
+import java.util.List;
+
 public class Report1 {
 	private String frid;
 
     private String name;
 
-    private order[] orders;
+    private order orders;
 
     public String getFrid ()
     {
@@ -27,12 +29,12 @@ public class Report1 {
         this.name = name;
     }
 
-    public order[] getOrders ()
+    public order getOrders ()
     {
         return orders;
     }
 
-    public void setOrders (order[] orders)
+    public void setOrders (order orders)
     {
         this.orders = orders;
     }

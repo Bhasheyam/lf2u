@@ -1,5 +1,7 @@
 package DataGeneration;
 
+import java.util.List;
+
 public class OrderReport {
 	private String order_total;
 
@@ -7,7 +9,7 @@ public class OrderReport {
 
     private String products_total;
 
-    private Order_details[] order_detail;
+    private Order_details order_detail;
 
     private String delivery_note;
 
@@ -53,12 +55,12 @@ public class OrderReport {
         this.products_total = products_total;
     }
 
-    public Order_details[] getOrder_detail ()
+    public Order_details getOrder_detail ()
     {
         return order_detail;
     }
 
-    public void setOrder_detail (Order_details[] order_detail)
+    public void setOrder_detail (Order_details order_detail)
     {
         this.order_detail = order_detail;
     }

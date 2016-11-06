@@ -10,7 +10,13 @@ public class Idgen {
 	static int counterc=0;
 	static int countero=0;
 	static int counterp=0;
+	static int countercp=0;
 	
+	public static int gcpid()
+	{
+		countercp++;
+		return countercp;
+	}
 	public static int fid()
 	{
 		counter++;

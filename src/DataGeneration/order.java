@@ -5,11 +5,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class order {
 	 private String order_total;
 
-	    private Order_details[] order_detail;
+	    private Order_details order_detail;
 
 	    private String delivery_charge;
 
@@ -41,12 +42,12 @@ public class order {
 	        this.order_total = order_total;
 	    }
 
-	    public Order_details[] getOrder_detail ()
+	    public Order_details getOrder_detail ()
 	    {
 	        return order_detail;
 	    }
 
-	    public void setOrder_detail (Order_details[] order_detail)
+	    public void setOrder_detail (Order_details order_detail)
 	    {
 	        this.order_detail = order_detail;
 	    }
