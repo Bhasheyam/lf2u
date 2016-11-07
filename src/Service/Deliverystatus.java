@@ -15,7 +15,7 @@ public class Deliverystatus {
 	List<order> os=new ArrayList<order>();
 	supportdc k=new supportdc();
 	Orderlist l=new Orderlist();
-	public String Delivery(int id)
+	public String Delivery(String id)
 	{ 
 		os=l.getorderlist();
 	for(order s:os)
