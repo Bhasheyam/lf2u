@@ -12,30 +12,31 @@ public class Idgen {
 	static int counterp=0;
 	static int countercp=0;
 	
-	public static int gcpid()
+	public static String gcpid()
 	{
 		countercp++;
-		return countercp;
+		
+		return countercp+"";
 	}
-	public static int fid()
+	public static String fid()
 	{
 		counter++;
-		return counter;
+		return counter+"";
 	}
-	public static int cid()
+	public static String cid()
 	{
 		counterc++;
-		return counterc;
+		return counterc+"";
 	}
-	public static int oid()
+	public static String oid()
 	{
 		countero++;
-		return countero;
+		return countero+"";
 	}
-	public static int pid()
+	public static String pid()
 	{
 		counterp++;
-		return counterp;
+		return counterp+"";
 	}
 	public static String getorderdate()
 	{

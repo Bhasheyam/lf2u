@@ -31,6 +31,13 @@ public class order {
 	    private String order_date;
 
 	    private String note;
+	    private String[] ordstatus={"open","Deliveried", "cancelled"};
+	    
+	    public order()
+	    {
+	    	this.oid=Idgen.oid();
+	    	this.status=ordstatus[0];
+	    }
 
 	    public String getOrder_total ()
 	    {
@@ -117,11 +124,6 @@ public class order {
 	        return oid;
 	    }
 
-	    public void setOid (String oid)
-	    {
-	        this.oid = oid;
-	    }
-
 	    public String getPlanned_delivery_date ()
 	    {
 	        return planned_delivery_date;
@@ -152,7 +154,19 @@ public class order {
 	        this.note = note;
 	    }
 
-
+//delivery status change
+	    public boolean delivered()
+	    {
+	    	status=ordstatus[1];
+	    return true;
+	    }
+	    
+	    //cancellation of order
+	    public boolean cancel()
+	    {
+	    	status=ordstatus[2];
+	    	return true;
+	    }
 
 }
 

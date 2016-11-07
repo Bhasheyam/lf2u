@@ -1,4 +1,4 @@
-package dataList.copy;
+package dataList;
 import java.util.ArrayList;
 import DataGeneration.*;
 

@@ -5,7 +5,7 @@ import java.util.List;
 public class place_order {
 
 	private String fid;
-	private int oid;
+	private String oid;
 
     private Order_details order_detail;
 
@@ -14,7 +14,7 @@ public class place_order {
     {
     	this.oid=Idgen.oid();
     }
-    public int getoid()
+    public String getoid()
     {
     	return this.oid;
     }

@@ -2,7 +2,7 @@ package DataGeneration;
 
 public class Farmerdata {
 
-    private int fid;
+    private String fid;
 
     private String[] delivers_to;
 
@@ -16,7 +16,7 @@ public class Farmerdata {
     	this.fid=Idgen.fid();
     }
 
-    public int getfid()
+    public String getfid()
     {
     	return this.fid;
     }

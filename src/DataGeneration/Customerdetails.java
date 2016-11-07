@@ -6,7 +6,7 @@ public class Customerdetails {
 	
 	
 	private String zip;
-	private int id;
+	private String id;
 
     private String phone;
 
@@ -24,7 +24,7 @@ public class Customerdetails {
 	{
 		this.id=Idgen.fid();
 	}
-    public int getcid()
+    public String getcid()
     {
     	return this.id;
     }
