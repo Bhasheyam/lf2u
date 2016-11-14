@@ -4,13 +4,14 @@ public class Farmerdata {
 
     private String fid;
 
-    private String[] delivers_to;
-
+    
+    private Farm_info farm_info;
     private Personal_info personal_info;
+   
+    private String[] delivers_to;
     
     private double delivery_charge;
 
-    private Farm_info farm_info;
     public Farmerdata()
     {
     	this.fid=Idgen.fid();
