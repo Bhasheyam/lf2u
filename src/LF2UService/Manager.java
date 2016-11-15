@@ -25,9 +25,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Path("Manager")
+import Service.Managerscope;
+
+@Path("/Manager")
 
 public class Manager {
+	
+	Managersupport use=new Managerscope();
 	public StringBuilder ExtractString(InputStream incomingData)
 	{
 		StringBuilder jsonInString = new StringBuilder();
@@ -87,33 +91,65 @@ public class Manager {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response account()
 	{
-		return null;
+	
+		String out;
+		out=use.getmlist();
+		return Response.status(200).entity(out).build();
+		
 	}
 	@Path("/accounts/{mid}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response accountwid(@PathParam("mid")String s)
+	public Response accountwid(@PathParam("mid")int s)
 	{
-		return null;
+		String out;
+		out=use.getmanager(s);
+		if(out.equals("[]"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("manager account not found for ID: " + s).build();
+		}
+		else
+		{
+			return Response.status(200).entity(out).build();
+		}
 	}	
 	
-	@Path("/{fid}/reports")
-	@GET
+	@Path("/reports")
+	@	GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getreportlist(@PathParam("fid")String s)
+	public Response getreportlist()
 	
 	{
-		return null;
+		String out;
+		out=use.getreplist();
+		return Response.status(200).entity(out).build();
 		
 	}
 	@Path("/{fid}/reports/{mrid}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getreportlistda(@PathParam("fid")String s,@PathParam("frid")String s1,@QueryParam("start_date") String st1,@QueryParam("end_date") String st2)
+	public Response getreportlistda(@PathParam("fid")String s,@PathParam("mrid")String s1,@QueryParam("start_date") String st1,@QueryParam("end_date") String st2)
 	
 	{
-		return null;
+		String out;
 		
+		if(s1.equals("1") || s1.equals("2"))
+		{
+			out=use.getreportt1(s,s1);
+		}
+		else if(s1.equals("3") || s1.equals("4"))
+		{
+			out=use.getreportt2(s,s1,st1,st2);
+		}
+		else if(s1.equals("5"))
+		{
+			out=use.getreportt3(s,s1,st1,st2);
+		}
+		else
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("Report  not found for MRID: " + s1).build();
+		}
+		return Response.status(200).entity(out).build();
 	}
 
 	

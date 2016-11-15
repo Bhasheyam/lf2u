@@ -23,9 +23,9 @@ boolean a;
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response Deliverysta(@PathParam("oid")String s,@Context UriInfo i)
 	{ 
-		System.out.println("hello");
 		
-			a=use.Delivery(s);
+		
+		a=use.Delivery(s);
 		if(a==false)	
 		{
 			 return Response.status(Response.Status.NOT_FOUND).entity("Order not found for ID: " + s).build();

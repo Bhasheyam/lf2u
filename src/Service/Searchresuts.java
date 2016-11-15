@@ -9,6 +9,7 @@ public class Searchresuts implements searchsupport {
 	public void Searchf(String key)
 	{
 		
+		
 	}
 	public void Searchc(String key)
 	{
@@ -26,11 +27,11 @@ public class Searchresuts implements searchsupport {
 		}
 		else if (s=="customer")
 		{
-			searchc(s2);
+			Searchc(s2);
 		}
 		else if(s=="order")
 		{
-			searcho(s2);
+			Searcho(s2);
 		}
 		else
 		{
