@@ -1,5 +1,10 @@
 package Service;
 
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -10,17 +15,13 @@ import DataGeneration.Farmerdata;
 public class Farmservice {
 	
 	
-	public String Addaccount(String s)
+	public String Addaccount(StringBuilder s) throws JsonParseException, JsonMappingException, IOException
 	{
-		String s1;
-		Gson d=new GsonBuilder().setPrettyPrinting().create();
-		Farmerdata f=(Farmerdata) d.fromJson(s,Farmerdata.class);
-		
-		Farmerlist l=new Farmerlist();
-		l.add(f);
-		s1=f.getfid();
-		
-		return s1;
+		Farmerdata fm=new Farmerdata();
+		ObjectMapper mapper = new ObjectMapper();
+		fm=mapper.readValue(s.toString(),Farmerdata.class);
+	
+		return fm.getfid();
 	}
 
 }

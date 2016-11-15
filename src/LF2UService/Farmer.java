@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -14,12 +15,17 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import DataGeneration.Farmerdata;
+
 @Path("/Farmer")
 public class Farmer {
+	ObjectMapper mapper = new ObjectMapper();
 	
 	public StringBuilder ExtractString(InputStream incomingData)
 	{
@@ -50,15 +56,26 @@ public class Farmer {
 	   return jNode;
 	}
 
-	@GET
+	@POST
 	@Produces(MediaType.TEXT_PLAIN)
-	public Response check()
+	@Consumes(MediaType.TEXT_PLAIN)
+	public Response check1(InputStream incomingData, @Context UriInfo i)throws Exception
 	{
-		String js="hello";
-		
-		
-	return Response.status(200).entity(js).build();	
+		String s;
+		s=incomingData.toString();
+		return Response.status(200).entity(s).build();	
 	}
+	
+//Consumes(MediaType.TEXT_PLAIN)
+//	public Response check(InputStream incomingData, @Context UriInfo i)throws Exception
+//	{
+//		Farmerdata f;
+//		StringBuilder jsonInString = ExtractString(incomingData);
+//		f=mapper.readValue(jsonInString.toString(),Farmerdata.class);
+//		String s=f.getfid();
+//		System.out.println("s val " + s);
+//		return Response.status(200).entity(s).build();	
+//	}
 	
 	
 //	@POST
