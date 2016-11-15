@@ -57,12 +57,7 @@ public class Cutomer {
 		}
 	   return jNode;
 	}
-	@Path("")
-	@POST
-	@GET
-	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
