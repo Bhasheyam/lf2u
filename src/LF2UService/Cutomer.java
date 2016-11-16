@@ -123,7 +123,16 @@ public class Cutomer {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getorders(@PathParam("cid")String s)
 	{
-		return null;
+		String out;
+		out=use.Showorder(s);
+		if(out.equals("[]"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("customer account not found for ID: " + s).build();
+		}
+		else
+		{
+			return Response.status(200).entity(out).build();
+		}
 	}
 	
 	@Path("/{cid}/orders/{oid}")

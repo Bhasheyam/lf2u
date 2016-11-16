@@ -1,6 +1,7 @@
 package Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -14,11 +15,16 @@ import LF2UService.Customersupport;
 import ServiceSupport.cid;
 import dataList.gcpid;
 import dataList.oid;
+import dataList.orderget;
 
 public class Customerser implements Customersupport {
 public static List<Customerdetails> col=new ArrayList<Customerdetails>();
 public static List<place_order> col1=new ArrayList<place_order>();
 public static List<corders> col2=new ArrayList<corders>();
+public static List<orderget> col3=new ArrayList<orderget>();
+public static List<corders> use1=new ArrayList<corders>();
+
+
 	@Override
 	public String createaccount(StringBuilder b) {
 		String out;
@@ -68,6 +74,7 @@ public static List<corders> col2=new ArrayList<corders>();
 	Gson f=new Gson();
 	p=f.fromJson(b.toString(), place_order.class);
 	col1.add(p);
+	
 	//mapping th order details
 	corders o=new corders();
 	String t=p.getFid();
@@ -75,19 +82,41 @@ public static List<corders> col2=new ArrayList<corders>();
 	o.setFid(t);
 	o.setOid(t1);
 	col2.add(o);
+	
 	//sending json class
 	oid o1=new oid();
 	String g=p.getoid();
 	o1.set(g);
-	//getClass().converting json
+	
+	//update view order
+	orderget k=new orderget();
+	k.set(s);
+	k.setoid(g);
+	k.setorders(o);
+	col3.add(k);
+	//getClass.converting json
 		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
-		 out=f1.toJson(o);
+		 out=f1.toJson(o1);
 		 return out;
 		
 	}
-public String showorder(String s)
-{
-	return s;
+
+@Override
+public String Showorder(String s) {
+	String out;
+	
+	for(orderget p:col3)
+	{
+		if(p.get()==s)
+		{
+			corders k;
+			k=p.getorders();
+			use1.add(k);
+		}
+	}
+	Gson f1 = new GsonBuilder().setPrettyPrinting().create();
+	 out=f1.toJson(use1);
+	 return out;
 	
 }
 	

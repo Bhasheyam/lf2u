@@ -12,10 +12,10 @@ public class corders {
     private String planned_delivery_date;
 
     private String order_date;
-    private String[] ordstatus={"open","Deliveried", "cancelled"};
+    
     public corders()
     {
-    	this.status=ordstatus[0];
+    	this.status="open";
     	this.order_date=Idgen.getcurrentdate();
     	this.actual_delivery_date=Idgen.getnextday();
     	
