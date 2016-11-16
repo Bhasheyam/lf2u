@@ -21,10 +21,38 @@ public class managerreportlis {
     managerreport mr4 =new managerreport();
     List<managerreport> m=new ArrayList<managerreport>();
     List<Manageraccount> m1=new ArrayList<Manageraccount>();
+    List<managereport12> m2=new ArrayList<managereport12>();
+    List<managerreport45> m3=new ArrayList<managerreport45>();
+    List<catalogmange> m4=new ArrayList<catalogmange>();
     Manageraccount ma=new Manageraccount();
     Manageraccount ma1=new Manageraccount();
     Manageraccount ma2=new Manageraccount();
     
+    public void addlist(managereport12 a)
+    {
+    	m2.add(a);
+    }
+    public void addlist1(managerreport45 a1)
+    {
+    	m3.add(a1);
+    }
+    public List<managereport12> getrep1()
+    {
+    	return this.m2;
+    }
+    public List<managerreport45> getrep2()
+    {
+    	return this.m3;
+    }
+    
+    public void addcat(catalogmange e)
+    {
+    	m4.add(e);
+    }
+    public List<catalogmange> getcat()
+    {
+    	return this.m4;
+    }
     
     
     public managerreportlis()

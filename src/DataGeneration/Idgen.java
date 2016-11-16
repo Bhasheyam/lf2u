@@ -14,38 +14,38 @@ public class Idgen {
 	
 	public static String gcpid()
 	{
-		countercp++;
+		countercp=countercp+1;
 		
-		return countercp+"";
+		return ""+countercp;
 	}
 	public static String fid()
 	{
-		counter++;
+		counter=counter+1;
 		return counter+"";
 	}
 	public static String cid()
 	{
-		counterc++;
+		counterc=counterc+1;
 		return counterc+"";
 	}
 	public static String oid()
 	{
-		countero++;
+		countero=countero+1;
 		return countero+"";
 	}
 	public static String pid()
 	{
-		counterp++;
+		counterp=counterp+1;
 		return counterp+"";
 	}
-	public static String getorderdate()
+	public static String getcurrentdate()
 	{
 		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
 		Date dateobj = new Date();
 		return df.format(dateobj);
 	}
 	
-	public static String getdeliveryday()
+	public static String getnextday()
 	{
 		
 		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
@@ -53,6 +53,17 @@ public class Idgen {
 		Calendar cal = Calendar.getInstance();
 	    cal.setTime(dateobj);
 	    cal.add(Calendar.DATE, 1); 
+	    dateobj=cal.getTime();
+		return df.format(dateobj);
+	}
+	public static String getyest()
+	{
+		
+		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
+		Date dateobj = new Date();
+		Calendar cal = Calendar.getInstance();
+	    cal.setTime(dateobj);
+	    cal.add(Calendar.DATE, -1); 
 	    dateobj=cal.getTime();
 		return df.format(dateobj);
 	}

@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -17,6 +18,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -24,7 +26,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import DataGeneration.catalogmange;
 import Service.Managerscope;
 
 @Path("/Manager")
@@ -69,23 +74,56 @@ public class Manager {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response catalog()
 	{
-		return null;
+		String out;
+		out=use.getcatlist();
+		if(out.equals("[]"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("Catalog is empty" ).build();
+		}
+		else
+		{
+			return Response.status(200).entity(out).build();
+		}
+		
 	}
+	
 	@Path("/catalog")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createcat(InputStream incomingData)
 	{
-		return null;
+		String out;
+		StringBuilder out1=ExtractString(incomingData);
+		out=use.addcat(out1);
+		
+	return Response.status(201).entity(out).build();
 	}
+	
 	@Path("/catalog/{gcpid}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response Updatecat(InputStream incomingData,@PathParam("gcpid")String s)
+	public Response Updatecat(InputStream incomingData,@PathParam("gcpid")String s, @Context UriInfo i)
 	{
-		return null;
+		String out;
+		StringBuilder b;
+		b=ExtractString(incomingData);
+		boolean a=use.update(s,b);
+		if(a==false)
+		{
+			 return Response.status(Response.Status.NOT_FOUND).entity("product not found for ID: " + s).build();
+		}
+		else
+		{
+			UriBuilder builder = i.getAbsolutePathBuilder();
+		       builder.path(s);
+			return Response.created(builder.build()).build();
+		}
+		
+		
+		
 	}
+	
 	@Path("/accounts")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -135,7 +173,7 @@ public class Manager {
 		
 		if(s1.equals("1") || s1.equals("2"))
 		{
-			out=use.getreportt1(s,s1);
+			out= use.getreportt1(s,s1);
 		}
 		else if(s1.equals("3") || s1.equals("4"))
 		{
