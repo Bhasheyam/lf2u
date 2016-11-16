@@ -21,10 +21,13 @@ public class Search {
 	public Response getdetails(@QueryParam("topic")String topic,@QueryParam("key")String key)
 	{
 		String out;
-		out=
+		out=use.search(topic,key);
 		
 		
 		 return Response.status(200).entity(out).build();
 	}
+
+	
+	
 
 }

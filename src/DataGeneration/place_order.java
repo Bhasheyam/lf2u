@@ -7,7 +7,7 @@ public class place_order {
 	private String fid;
 	private String oid;
 
-    private Order_details order_detail;
+    private Order_details[] order_detail;
 
     private String delivery_note;
     public place_order()
@@ -29,12 +29,12 @@ public class place_order {
         this.fid = fid;
     }
 
-    public Order_details getOrder_detail ()
+    public Order_details[] getOrder_detail ()
     {
         return order_detail;
     }
 
-    public void setOrder_detail (Order_details order_detail)
+    public void setOrder_detail (Order_details[] order_detail)
     {
         this.order_detail = order_detail;
     }

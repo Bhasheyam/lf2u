@@ -1,27 +1,34 @@
 package Service;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sun.org.apache.xml.internal.resolver.CatalogManager;
 
 import DataGeneration.Manageraccount;
 import DataGeneration.catalogmange;
-import DataGeneration.gcpid;
 import DataGeneration.managereport12;
 import DataGeneration.managerreport;
 import DataGeneration.managerreport45;
 import LF2UService.Managersupport;
+import dataList.gcpid;
 import dataList.managerreportlis;
 
 public class Managerscope implements Managersupport {
-	
+	ObjectMapper mapper = new ObjectMapper();
 	managerreportlis m=new managerreportlis();
+	public static List<catalogmange> col=new ArrayList<catalogmange>();
 	//manager report list
 	public String getreplist()
 	{
+		
 		List<managerreport> mh=new <managerreport>ArrayList();
 		
 		m.setreplist();
@@ -108,42 +115,51 @@ public class Managerscope implements Managersupport {
 	//mapping the value
 	Gson f = new Gson();
 	use1=f.fromJson(out1.toString(), catalogmange.class);
-	//to print the json
+	//adding to a list to have concolidated one.
+	col.add(use1);
+	
 	gcpid g=new gcpid();
+	//to print the json
+	//sending json out
 	String p=use1.getGcpid();
 	g.set(p);
 	Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 	 out=f1.toJson(g);
 	 return out;	
+	 
 	}
 //catalog list
 	@Override
 	public String getcatlist() {
 		String out;
-		List<catalogmange> gg=new ArrayList<catalogmange>();
-		gg=m.getcat();
 		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
-		 out=f1.toJson(gg);
+		 out=f1.toJson(col);
 		 return out;
 	}
 	//catalog search
 	@Override
-	public boolean update(String s, StringBuilder b) {
+	public boolean update(String s, StringBuilder b)  {
 		boolean b1=false;
-		List<catalogmange> gg=new ArrayList<catalogmange>();
-		gg=m.getcat();
-		for(catalogmange h:gg)
-		{
-			if(h.getGcpid()==s)
+		
+		for(catalogmange h:col)
+		{ 
+			String check=h.getGcpid();
+			if(check.equals(s))
 			{
+				int i=col.indexOf(h);
+				
 				Gson f = new Gson();
-				h=f.fromJson(b.toString(), catalogmange.class);
+	
+					h= mapper.readValue(b.toString(),catalogmange.class);
+				
+				col.set(i,h);
 				b1=true;
 			}
 		}
 		
 		return b1;
 	}
+	
 
 	
 	

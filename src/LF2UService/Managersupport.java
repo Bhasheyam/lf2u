@@ -1,6 +1,10 @@
 package LF2UService;
 
+import java.io.IOException;
 import java.io.InputStream;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 public interface Managersupport {
 
@@ -12,5 +16,5 @@ public String getreportt2(String s, String s1, String st1, String st2);
 public String getreportt3(String s, String s1, String st1, String st2);
 public String addcat(StringBuilder out1);
 public String getcatlist();
-public boolean update(String s, StringBuilder b);
+public boolean update(String s, StringBuilder b) throws JsonParseException, JsonMappingException, IOException;
 }

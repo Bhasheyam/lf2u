@@ -24,13 +24,17 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import Service.Customerser;
+
 
 
 @Path("/Customer")
 public class Cutomer {
+	Customersupport use=new Customerser();
 	
 	public StringBuilder ExtractString(InputStream incomingData)
 	{
+		
 		StringBuilder jsonInString = new StringBuilder();
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(incomingData));
@@ -64,7 +68,12 @@ public class Cutomer {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createaccount(InputStream incomingData)
 	{
-		return null;
+		String out;
+		StringBuilder b=ExtractString(incomingData);
+		out=use.createaccount(b);
+		
+		
+		return Response.status(201).entity(out).build();
 		
 	}
 	@Path("/{cid}")
@@ -73,7 +82,9 @@ public class Cutomer {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateaccount(@PathParam("cid")String s,InputStream incomingData)
 	{
-		return null;
+		String out;
+		StringBuilder b=ExtractString(incomingData);
+		use.update(s,b);
 		
 	}
 	@Path("/{cid}")
@@ -81,7 +92,17 @@ public class Cutomer {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response Getcustomeraccount(@PathParam("cid")String s)
 	{
-		return null;
+		String out;
+		out=use.getcustomer(s);
+		if(out.equals("[]"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("customer account not found for ID: " + s).build();
+		}
+		else
+		{
+			return Response.status(200).entity(out).build();
+		}
+		
 	}
 	
 	@Path("/{cid}/orders")
@@ -90,7 +111,11 @@ public class Cutomer {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response order(@PathParam("cid")String s,InputStream incomingData)
 	{
-		return null;
+		String out;
+		StringBuilder b;
+		b=ExtractString(incomingData);
+		out=use.createorder(s,b);
+		return Response.status(200).entity(out).build();
 	}
 	
 	@Path("/{cid}/orders")

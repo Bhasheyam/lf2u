@@ -2,10 +2,10 @@ package DataGeneration;
 public class catalogmange {
 	private String name;
 
-    private String id;
+    private String gcpid;
     public catalogmange()
     {
-    	this.id=Idgen.gcpid();
+    	this.gcpid=Idgen.gcpid();
     }
 
     public String getName ()
@@ -20,7 +20,7 @@ public class catalogmange {
 
     public String getGcpid ()
     {
-        return this.id;
+        return this.gcpid;
     }
 
    

@@ -1,4 +1,4 @@
-package DataGeneration;
+package dataList;
 
 public class gcpid {
 	
