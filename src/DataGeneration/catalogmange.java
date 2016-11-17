@@ -17,6 +17,10 @@ public class catalogmange {
     {
         this.name = name;
     }
+    public void setgcpid(String s)
+    {
+    	this.gcpid=s;
+    }
 
     public String getGcpid ()
     {

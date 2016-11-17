@@ -16,6 +16,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -80,11 +81,22 @@ public class Cutomer {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateaccount(@PathParam("cid")String s,InputStream incomingData)
+	public Response updateaccount(@PathParam("cid")String s,InputStream incomingData,@Context UriInfo i)
 	{
-		String out;
+		
+		boolean a;
 		StringBuilder b=ExtractString(incomingData);
-		use.update(s,b);
+		a=use.update(s,b);
+		if(a==false)
+		{
+			 return Response.status(Response.Status.NOT_FOUND).entity("product not found for ID: " + s).build();
+		}
+		else
+		{
+			UriBuilder builder = i.getAbsolutePathBuilder();
+		       builder.path(s);
+			return Response.created(builder.build()).build();
+		}
 		
 	}
 	@Path("/{cid}")
@@ -115,7 +127,15 @@ public class Cutomer {
 		StringBuilder b;
 		b=ExtractString(incomingData);
 		out=use.createorder(s,b);
-		return Response.status(200).entity(out).build();
+		
+		if(out.equals("[]"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("customer account not found for ID: " + s).build();
+		}
+		else
+		{
+			return Response.status(200).entity(out).build();
+		}
 	}
 	
 	@Path("/{cid}/orders")
@@ -148,7 +168,21 @@ public class Cutomer {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response cancel(@PathParam("cid")String s,@PathParam("oid")String s1)
 	{
-		return null;
+		String out;
+		out=use.cancel(s,s1);
+		if(out.equals("[]"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("Order  not found for ID: " + s).build();
+		}
+		else if (out.equals("no"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("Order ID: " + s+" cannot be cancelled").build();	
+		}
+		else
+		{
+			return Response.status(200).entity(out).build();
+		}
+		
 	}
 	
 	

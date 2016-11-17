@@ -1,19 +1,14 @@
 package DataGeneration;
 
 public class corders {
-	private String fid;
-
-    private String status;
-
-    private String actual_delivery_date;
-
-    private String oid;
-
-    private String planned_delivery_date;
-
-    private String order_date;
-    
-    public corders()
+	
+	 private String oid;
+	 private String order_date;
+     private String actual_delivery_date;
+     private String planned_delivery_date;
+     private String status;
+     private String fid;
+     public corders()
     {
     	this.status="open";
     	this.order_date=Idgen.getcurrentdate();

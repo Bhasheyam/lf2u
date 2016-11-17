@@ -6,7 +6,7 @@ public class Customerdetails {
 	
 	
 	private String zip;
-	private String id;
+	private String cid;
 
     private String phone;
 
@@ -22,11 +22,15 @@ public class Customerdetails {
     }
     public Customerdetails()
 	{
-		this.id=Idgen.fid();
+		this.cid=Idgen.fid();
 	}
+    public void setcid(String s)
+    {
+    	this.cid=s;
+    }
     public String getcid()
     {
-    	return this.id;
+    	return this.cid;
     }
     
     public void setZip (String zip)

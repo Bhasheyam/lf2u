@@ -146,13 +146,15 @@ public class Managerscope implements Managersupport {
 			String check=h.getGcpid();
 			if(check.equals(s))
 			{
+				catalogmange d;
 				int i=col.indexOf(h);
+				
 				
 				Gson f = new Gson();
 	
-					h= mapper.readValue(b.toString(),catalogmange.class);
-				
-				col.set(i,h);
+					d=f.fromJson(b.toString(),catalogmange.class);
+				d.setgcpid(check);
+				col.set(i,d);
 				b1=true;
 			}
 		}

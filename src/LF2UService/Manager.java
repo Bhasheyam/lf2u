@@ -103,12 +103,15 @@ public class Manager {
 	@Path("/catalog/{gcpid}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response Updatecat(InputStream incomingData,@PathParam("gcpid")String s, @Context UriInfo i)
+	public Response Updatecat(InputStream incomingData,@PathParam("gcpid")String s, @Context UriInfo i) throws JsonParseException, JsonMappingException, IOException
 	{
-		String out;
+		
 		StringBuilder b;
 		b=ExtractString(incomingData);
-		boolean a=use.update(s,b);
+		boolean a;
+		
+			a = use.update(s,b);
+		
 		if(a==false)
 		{
 			 return Response.status(Response.Status.NOT_FOUND).entity("product not found for ID: " + s).build();

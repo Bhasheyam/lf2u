@@ -13,7 +13,7 @@ public class orderget {
 	{
 		this.cid=s;
 	}
-	public String get()
+	public String getcid()
 	{
 		return this.cid;
 	}
