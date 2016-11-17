@@ -17,6 +17,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -26,11 +27,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import DataGeneration.Farmerdata;
+import Service.Farmservice;
 
 @Path("/Farmer")
 public class Farmer {
-	ObjectMapper mapper = new ObjectMapper();
 	
+	Farmersupport use=new Farmservice();
 	public StringBuilder ExtractString(InputStream incomingData)
 	{
 		StringBuilder jsonInString = new StringBuilder();
@@ -61,23 +63,16 @@ public class Farmer {
 	}
 
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.TEXT_PLAIN)
-	public Response check1(InputStream incomingData, @Context UriInfo i)throws Exception
-	{
-		String s;
-		s=incomingData.toString();
-		return Response.status(200).entity(s).build();	
-	}
-	
-
-	
-	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createfarm(String json)
+	public Response createfarm(InputStream incomingData)
 	{
-		return null;
+		String out;
+		StringBuilder b=ExtractString(incomingData);
+		out=use.create(b);
+		
+		
+		return Response.status(201).entity(out).build();
 		
 	}
 	
@@ -85,8 +80,20 @@ public class Farmer {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updatefarmaccount(@PathParam("fid")String fid ,InputStream incomingData, @Context UriInfo i)
-	{
-		return null;
+	{boolean a;
+	StringBuilder b;
+	b=ExtractString(incomingData);
+	a=use.update(fid,b);
+		if(a==false)
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("Farm not found for ID: " + fid).build();
+		}
+		
+	else{
+		UriBuilder builder = i.getAbsolutePathBuilder();
+	       builder.path(fid);
+		return Response.created(builder.build()).build();
+	}
 	}
 	
 	
@@ -94,15 +101,34 @@ public class Farmer {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response showfarmdetails(@PathParam("fid")String fid)
-	{
-		return null;
+	{ 
+		String out;
+	out=use.getfarm(fid);
+		if(out.equals("[]"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("Farmer account not found for ID: " +fid).build();
+		}
+		else
+		{
+			return Response.status(200).entity(out).build();
+		}
 	}
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response showfarmzip(@QueryParam("Zip")String zi)
 	{
-		return null;
+		String out;
+		out=use.zip(zi);
+		if(out.equals("[]"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("Farm not found for ID: " + zi).build();
+		}
+		else
+		{
+			return Response.status(200).entity(out).build();
+		}
+		
 	}
 	
 	@Path("/{fid}/products")
@@ -110,7 +136,16 @@ public class Farmer {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response showproduct(@PathParam("fid")String s)
 	{
-		return null;
+		String out;
+		out=use.productslist(s);
+		if(out.equals("[]"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("No product found in the farm with  ID: " + s).build();
+		}
+		else
+		{
+			return Response.status(200).entity(out).build();
+		}
 	}
 	@Path("/{fid}/products")
 	@POST
@@ -118,7 +153,12 @@ public class Farmer {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addproduct(@PathParam("fid")String s,InputStream incomingData)
 	{
-		return null;
+		
+		String out;
+		StringBuilder b;
+		b=ExtractString(incomingData);
+		out=use.createprod(s,b);
+		return Response.status(200).entity(out).build();
 	}
 	
 	@Path("/{fid}/products/{fspid}")

@@ -2,23 +2,22 @@ package DataGeneration;
 
 public class Productdetails {
 	
-     String fspid;
-	 private String end_date;
-
-	    private String price;
-
+     private String fspid;
 	    private String gcpid;
-
-	    private String image;
-
-	    private String start_date;
-
-	    private String product_unit;
-
 	    private String note;
+	    private String start_date;
+	    private String end_date;
+	    private String price;
+	    private String product_unit;
+	    private String image;
+	    
 	    public Productdetails()
 	    {
 	    	this.fspid=Idgen.pid();
+	    }
+	    public void setfspid(String s)
+	    {
+	    	this.fspid=s;
 	    }
 
 	    public String getfspid()

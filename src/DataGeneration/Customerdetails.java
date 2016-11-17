@@ -5,16 +5,13 @@ public class Customerdetails {
 	
 	
 	
-	private String zip;
+	private String name;
 	private String cid;
-
-    private String phone;
-
-    private String email;
-
     private String street;
-
-    private String name;
+    private String zip;
+    private String phone;
+    private String email;
+    
 
     public String getZip ()
     {

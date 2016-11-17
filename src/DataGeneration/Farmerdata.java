@@ -7,14 +7,16 @@ public class Farmerdata {
     
     private Farm_info farm_info;
     private Personal_info personal_info;
-   
     private String[] delivers_to;
-    
     private double delivery_charge;
 
     public Farmerdata()
     {
     	this.fid=Idgen.fid();
+    }
+    public void setfid(String s)
+    {
+    	this.fid=s;
     }
 
     public String getfid()
