@@ -9,7 +9,9 @@ public class Searchresuts implements searchsupport {
 	public void Searchf(String key)
 	{
 		
-		
+		Field[] fs = b.getClass().getSuperclass().getDeclaredFields();
+        fs[0].setAccessible(true);
+        System.out.println(fs[0].get(b));
 	}
 	public void Searchc(String key)
 	{

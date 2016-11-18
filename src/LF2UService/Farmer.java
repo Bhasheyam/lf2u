@@ -116,10 +116,11 @@ public class Farmer {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response showfarmzip(@QueryParam("Zip")String zi)
+	public Response showfarmzip(@QueryParam("zip")String zi)
 	{
 		String out;
 		out=use.zip(zi);
+		System.out.println(zi);
 		if(out.equals("[]"))
 		{
 			return Response.status(Response.Status.NOT_FOUND).entity("Farm not found for ID: " + zi).build();
@@ -164,8 +165,23 @@ public class Farmer {
 	@Path("/{fid}/products/{fspid}")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public void addprice(@PathParam("fid")String s,@PathParam("fspid")String s1,InputStream incomingData)
+	public Response addprice(@PathParam("fid")String s,@PathParam("fspid")String s1,InputStream incomingData, @Context UriInfo i)
 	{
+		boolean a;
+		 StringBuilder b;
+		 b=ExtractString(incomingData);
+		a=use.updateproductinfo(s,s1,b);
+		if(a==false)
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("Product  not found for ID: " + s1).build();
+		}
+		
+	else{
+		UriBuilder builder = i.getAbsolutePathBuilder();
+	       builder.path("s/s1");
+		return Response.created(builder.build()).build();
+	}
+		
 		
 	}
 	
@@ -174,7 +190,17 @@ public class Farmer {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getproddetails(@PathParam("fid")String s,@PathParam("fspid")String s1)
 	{
-		return null;
+		String out;
+		out=use.getfarmdetails(s,s1);
+		if(out.equals("[]"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("Farm details  not found for ID: " +s1).build();
+		}
+		else
+		{
+			return Response.status(200).entity(out).build();
+		}
+		
 	}
 	@Path("/{fid}/reports")
 	@GET
@@ -182,8 +208,11 @@ public class Farmer {
 	public Response getreportlist(@PathParam("fid")String s)
 	
 	{
-		return null;
+		String out;
+		out=use.getreportlist();
+			
 		
+		return Response.status(200).entity(out).build();
 	}
 	@Path("/{fid}/reports/{frid}")
 	@GET

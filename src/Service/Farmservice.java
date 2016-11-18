@@ -13,6 +13,7 @@ import com.google.gson.GsonBuilder;
 import DataGeneration.Customerdetails;
 import DataGeneration.Farmerdata;
 import DataGeneration.Productdetails;
+import DataGeneration.Report;
 import LF2UService.Farmersupport;
 import dataList.*;
 import DataGeneration.Farmerdata;
@@ -84,31 +85,30 @@ List<zipfarm> temp2=new ArrayList<zipfarm>();
 		
 	}
 	@Override
-	public String zip(String zi) {
+	public String zip(String zi) throws NullPointerException {
 		
 		String out,c,c1;
-		zipfarm f=new zipfarm();
-		String[] z=new String[20];
-		Farmerdata fg=new Farmerdata();
+		
+		
 	for(Farmerdata e:col)
 	{
-		fg=e;
-	}
-//			for(String d:z)
-//			{
-//				if(zi.equals(d))
-//				{
-//					
-//					f.setfid(e.getfid());
-//					f.setname(e.getFarm_info().getName());
-//					temp2.add(f);
-//					
-//				}
-//			}	
-//		}
+		String[] z=new String[100];
+		z=e.getDelivers_to();
+		for(String d:z)
+			{
+				if(zi.equals(d))
+				{
+					zipfarm f=new zipfarm();
+					f.setfid(e.getfid());
+					f.setname(e.getFarm_info().getName());
+					temp2.add(f);
+					
+				}
+			}	
+		}
 		
 		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
-		 out=f1.toJson(fg.getDelivers_to());
+		 out=f1.toJson(temp2);
 		 return out;
 		
 	}
@@ -146,6 +146,97 @@ List<zipfarm> temp2=new ArrayList<zipfarm>();
 		Gson f=new GsonBuilder().setPrettyPrinting().create();
 		out=f.toJson(fs);
 		return out;
+		
+	}
+	@Override
+	public boolean updateproductinfo(String s, String s1, StringBuilder b) {
+		boolean a=false;
+		String ss,c,c1,c2,c3,c4,c5,k,k1;
+		Productdetails pd;
+		Gson g=new Gson();
+		pd=g.fromJson(b.toString(),Productdetails.class);
+		for(Productdetails g1:col1)
+		{
+			ss=g1.getfspid();
+			if(ss.equals(s1))
+			{
+				c=pd.getNote();
+				if(c!=null)
+				{
+					g1.setNote(c);
+				}
+				c1=pd.getPrice();
+				if(c1!=null)
+				{
+					g1.setPrice(c1);
+				}
+				c2=pd.getStart_date();
+				if(c2!=null)
+				{
+					g1.setStart_date(c2);
+				}
+				c3=pd.getEnd_date();
+				if(c3!=null)
+				{
+					g1.setEnd_date(c3);
+				}
+				c4=pd.getProduct_unit();
+				if(c4!=null)
+				{
+					g1.setProduct_unit(c4);
+				}
+				c5=pd.getImage();
+				if(c5!=null)
+				{
+					g1.setImage(c5);
+				} 
+				for(Productlist h:col2)
+				{
+					k=h.getpid();
+					if(k.equals(s1))
+					{
+						h.setprod(g1);
+						a=true;
+					}
+					
+				}
+			}
+			
+		}
+		return a;
+	}
+	@Override
+	public String getfarmdetails(String s, String s1) {
+		
+	String out,k,k1;
+	Productdetails temp;
+		for(Productlist h:col2)
+		{
+			k=h.getpid();
+			k1=h.getid();
+			if(k1.equals(s) && k.equals(s1))
+			{
+				temp=h.getprod();
+				Gson f=new GsonBuilder().setPrettyPrinting().create();
+				out=f.toJson(temp);
+				return out;
+				
+			}
+		
+	}
+		return "[]";
+	}
+	@Override
+	public String getreportlist() {
+		String out;
+		FarmerReport report=new FarmerReport();
+		List<Report> h=new ArrayList<Report>();
+		h=report.getlist();
+        Gson f=new GsonBuilder().setPrettyPrinting().create();
+		out=f.toJson(h);
+		return out;
+				
+				
 		
 	}
 	
