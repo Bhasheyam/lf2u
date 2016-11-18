@@ -13,5 +13,7 @@ public interface Customersupport {
 	public String Showorder(String s);
 
 	public String cancel(String s, String s1);
+
+	public String getorderdetails(String s, String s1);
 	
 }

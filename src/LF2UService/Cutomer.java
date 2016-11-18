@@ -159,8 +159,19 @@ public class Cutomer {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getorderswithid(@PathParam("cid")String s,@PathParam("oid")String s1)
-	{
-		return null;
+	{  
+		String out;
+		out=use.getorderdetails(s,s1);
+		if(out.equals("[]"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("order not found for ID: " + s1).build();
+		}
+		else
+		{
+			return Response.status(200).entity(out).build();
+		}
+		
+	
 	}
 	
 	@Path("/{cid}/orders/{oid}")
@@ -176,10 +187,15 @@ public class Cutomer {
 		}
 		else if (out.equals("no"))
 		{
-			return Response.status(Response.Status.NOT_FOUND).entity("Order ID: " + s+" cannot be cancelled as the order need to be cancelled within the same day").build();	
+			return Response.status(Response.Status.NOT_FOUND).entity("Order ID: " + s+" cannot be cancelled as the order need to be cancelled within the same day ").build();	
+		}
+		else if(out.equals("can"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("Order ID: " + s+"  is already delivered kindly check the status.").build();
+			
 		}
 		else
-		{
+			{
 			return Response.status(200).entity(out).build();
 		}
 		

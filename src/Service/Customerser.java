@@ -177,7 +177,7 @@ public String Showorder(String s) {
 @Override
 public String cancel(String s, String s1) {
 	String out;
-	String g,ck,ck1;
+	String g,ck,ck1,ck2;
 	Idgen i=new Idgen();
 	for(corders e1:col2)
 	{
@@ -186,6 +186,9 @@ public String cancel(String s, String s1) {
 		{
 			ck=i.getcurrentdate();
 			ck1=e1.getOrder_date();
+			ck2=e1.getStatus();
+			if(ck2.equals("open"))
+			{
 			if(ck.equals(ck1))
 			{
 				e1.setStatus("cancelled");
@@ -199,11 +202,25 @@ public String cancel(String s, String s1) {
 			{
 				return "no";
 			}
+			}
+			else
+			{
+				return "can";
+			}
 		}
 	}
 	
 	return "[]";
 	 
+	
+}
+@Override
+public String getorderdetails(String s, String s1) {
+	String out;
+	
+	
+	
+	return "[]";
 	
 }
 }

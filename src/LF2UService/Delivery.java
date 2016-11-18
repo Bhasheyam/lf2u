@@ -24,12 +24,16 @@ boolean a;
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response Deliverysta(@PathParam("oid")String s,@Context UriInfo i)
 	{ 
-		
+		String a;
 		
 		a=use.Delivery(s);
-		if(a==false)	
+		if(a=="no")	
 		{
 			 return Response.status(Response.Status.NOT_FOUND).entity("Order not found for ID: " + s).build();
+		}
+		else if(a=="can")
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("Order is already cancelled ID: " + s).build();
 		}
 		else
 		{
