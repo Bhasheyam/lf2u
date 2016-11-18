@@ -1,12 +1,8 @@
 package Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -23,6 +19,7 @@ public class Farmservice implements Farmersupport {
 public static List<Farmerdata> col=new ArrayList<Farmerdata>();
 public static List<Productdetails> col1=new ArrayList<Productdetails>();
 public static List<Productlist> col2=new ArrayList<Productlist>();
+public static List<Delivery> col3=new ArrayList<Delivery>();
 List<Productdetails> temp=new ArrayList<Productdetails>();
 List<zipfarm> temp2=new ArrayList<zipfarm>();
 	@Override
@@ -151,8 +148,14 @@ List<zipfarm> temp2=new ArrayList<zipfarm>();
 	@Override
 	public boolean updateproductinfo(String s, String s1, StringBuilder b) {
 		boolean a=false;
-		String ss,c,c1,c2,c3,c4,c5,k,k1;
+		String ss,c,c2,c3,c4,c5,k,k1,z;
+		double c1;
 		Productdetails pd;
+		for(Productlist prod:col2)
+		{
+			z=prod.getid();
+			if(z.equals(s))
+			{
 		Gson g=new Gson();
 		pd=g.fromJson(b.toString(),Productdetails.class);
 		for(Productdetails g1:col1)
@@ -166,7 +169,7 @@ List<zipfarm> temp2=new ArrayList<zipfarm>();
 					g1.setNote(c);
 				}
 				c1=pd.getPrice();
-				if(c1!=null)
+				if(c1!=0.0d)
 				{
 					g1.setPrice(c1);
 				}
@@ -203,10 +206,12 @@ List<zipfarm> temp2=new ArrayList<zipfarm>();
 			}
 			
 		}
+		}
+		}
 		return a;
 	}
 	@Override
-	public String getfarmdetails(String s, String s1) {
+	public String getproductdetails(String s, String s1) {
 		
 	String out,k,k1;
 	Productdetails temp;
@@ -239,9 +244,47 @@ List<zipfarm> temp2=new ArrayList<zipfarm>();
 				
 		
 	}
-	
-	
-	
-	
-
+	@Override
+	public boolean deliverycharge(String s,StringBuilder b) {
+		boolean a=false;
+		String l;
+		
+		Delivery d=new Delivery();
+		
+		deliverysup d1=new deliverysup();
+		for(Farmerdata r:col)
+		{
+			l=r.getfid();
+			if(s.equals(l))
+	        {
+				Gson g=new Gson();
+				d1=g.fromJson(b.toString(),deliverysup.class);
+				d.setfid(s);
+				d.setcharge(d1.getcharges());
+				col3.add(d);
+				a=true;
+	      }
+	  	}
+    	
+		return a;
+	}
+	@Override
+	public String getdeliverycharges(String s) {
+		String out,c;
+		deliverysup d1=new deliverysup();
+		for(Delivery j:col3)
+		{
+			c=j.getid();
+			if(c.equals(s))
+			{
+	           d1.setcharge(j.getcharges());
+	           Gson f=new GsonBuilder().setPrettyPrinting().create();
+	           out=f.toJson(d1);
+	           return out;
+			}
+		
+		}
+		
+		return"[]";
+	}
 }

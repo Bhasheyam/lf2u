@@ -11,11 +11,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
-
-import Service.Deliverystatus;
+import Service.Customerser;
+import Service.deliverystatus;
 @Path("/delivery")
 public class Delivery {
-	Deliversupport use=new Deliverystatus();
+	Deliversupport use=new deliverystatus();
+	
 boolean a;
 
 	@Path("/{oid}")

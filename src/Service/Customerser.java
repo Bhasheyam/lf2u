@@ -14,6 +14,7 @@ import DataGeneration.corders;
 import DataGeneration.place_order;
 import DataGeneration.supportdc;
 import LF2UService.Customersupport;
+import LF2UService.Deliversupport;
 import ServiceSupport.cid;
 import dataList.gcpid;
 import dataList.oid;
@@ -26,6 +27,22 @@ public static List<corders> col2=new ArrayList<corders>();
 public static List<orderget> col3=new ArrayList<orderget>();
  List<corders> col4=new ArrayList<corders>();
 
+public static List<corders> getcorder()
+{
+	return col2;
+}
+public static List<orderget> getorderget()
+{
+	return col3;
+}
+public static void setcorder(List<corders> s)
+{
+	col2=s;
+}
+public static void setorderget(List<orderget> s)
+{
+	col3=s;
+}
 
 	@Override
 	public String createaccount(StringBuilder b) {
@@ -189,10 +206,11 @@ public String cancel(String s, String s1) {
 	 
 	
 }
-
-	
-
-	
 }
+
+	
+
+	
+
 	
 

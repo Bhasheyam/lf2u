@@ -16,9 +16,14 @@ public interface Farmersupport {
 
 	boolean updateproductinfo(String s, String s1, StringBuilder b);
 
-	String getfarmdetails(String s, String s1);
+	String getproductdetails(String s, String s1);
 
 	String getreportlist();
+
+
+	boolean deliverycharge(String s, StringBuilder b);
+
+	String getdeliverycharges(String s);
 
 	
 }

@@ -7,7 +7,7 @@ public class Productdetails {
 	    private String note;
 	    private String start_date;
 	    private String end_date;
-	    private String price;
+	    private double price;
 	    private String product_unit;
 	    private String image;
 	    
@@ -34,12 +34,12 @@ public class Productdetails {
 	        this.end_date = end_date;
 	    }
 
-	    public String getPrice ()
+	    public double getPrice ()
 	    {
 	        return price;
 	    }
 
-	    public void setPrice (String price)
+	    public void setPrice (double price)
 	    {
 	        this.price = price;
 	    }

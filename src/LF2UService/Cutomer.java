@@ -176,7 +176,7 @@ public class Cutomer {
 		}
 		else if (out.equals("no"))
 		{
-			return Response.status(Response.Status.NOT_FOUND).entity("Order ID: " + s+" cannot be cancelled").build();	
+			return Response.status(Response.Status.NOT_FOUND).entity("Order ID: " + s+" cannot be cancelled as the order need to be cancelled within the same day").build();	
 		}
 		else
 		{

@@ -191,10 +191,10 @@ public class Farmer {
 	public Response getproddetails(@PathParam("fid")String s,@PathParam("fspid")String s1)
 	{
 		String out;
-		out=use.getfarmdetails(s,s1);
+		out=use.getproductdetails(s,s1);
 		if(out.equals("[]"))
 		{
-			return Response.status(Response.Status.NOT_FOUND).entity("Farm details  not found for ID: " +s1).build();
+			return Response.status(Response.Status.NOT_FOUND).entity("product details  not found for FID: " +s+" FSPID :"+s1).build();
 		}
 		else
 		{
@@ -210,8 +210,6 @@ public class Farmer {
 	{
 		String out;
 		out=use.getreportlist();
-			
-		
 		return Response.status(200).entity(out).build();
 	}
 	@Path("/{fid}/reports/{frid}")
@@ -227,16 +225,39 @@ public class Farmer {
 @Path("/{fid}/delivery_charge ")
 @POST
 @Consumes(MediaType.APPLICATION_JSON)
-public void setdeleiverycharges(@PathParam("fid")String s,InputStream incomingData)
+public Response setdeleiverycharges(@PathParam("fid")String s,InputStream incomingData, @Context UriInfo i)
 {
+	boolean a;
+	StringBuilder b;
+	b=ExtractString(incomingData);
+    a=use.deliverycharge(s,b);
+	if(a==false)
+	{
+		return Response.status(Response.Status.NOT_FOUND).entity("Farm not found for ID: " + s).build();
+	}
 	
+else{
+	UriBuilder builder = i.getAbsolutePathBuilder();
+      builder.path(s);
+	return Response.created(builder.build()).build();
+}
 }
 @Path("/{fid}/delivery_charge ")
 @GET
 @Produces(MediaType.APPLICATION_JSON)
 public Response setdeleiverycharges(@PathParam("fid")String s)
 {
-	return null;
+	String out;
+	out=use.getdeliverycharges(s);
+	if(out.equals("[]"))
+	{
+		return Response.status(Response.Status.NOT_FOUND).entity("Farm   not found for ID: " +s).build();
+	}
+	else
+	{
+		return Response.status(200).entity(out).build();
+	}
+	
 }
 }
 	
