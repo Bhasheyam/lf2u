@@ -22,6 +22,18 @@ public static List<Productlist> col2=new ArrayList<Productlist>();
 public static List<Delivery> col3=new ArrayList<Delivery>();
 List<Productdetails> temp=new ArrayList<Productdetails>();
 List<zipfarm> temp2=new ArrayList<zipfarm>();
+public static List<Farmerdata> getfarmlist()
+{
+	return col;
+}
+public static List<Delivery> getdeliverylist()
+{
+	return col3;
+}public static List<Productdetails> getproductlist()
+{
+	return col1;
+}
+
 	@Override
 	public String create(StringBuilder b) {
 		String out;

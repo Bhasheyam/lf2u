@@ -1,25 +1,25 @@
 package DataGeneration;
 
 public class Order_details {
-	private String line_item_total;
+	
 
-    private String price;
-
-    private String name;
-
+    
     private String fspid;
-
-    private String order_size;
-
-    public String getLine_item_total ()
+    private String name;
+    private String amount;
+    private String price;
+    private double line_item_total;
+   
+    public double getLine_item_total ()
     {
         return line_item_total;
     }
 
-    public void setLine_item_total (String line_item_total)
+    public void setLine_item_total (double line_item_total)
     {
         this.line_item_total = line_item_total;
     }
+    
 
     public String getPrice ()
     {
@@ -53,12 +53,12 @@ public class Order_details {
 
     public String getOrder_size ()
     {
-        return order_size;
+        return amount;
     }
 
     public void setOrder_size (String order_size)
     {
-        this.order_size = order_size;
+        this.amount = order_size;
     }
 
 }

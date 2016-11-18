@@ -3,64 +3,66 @@ package DataGeneration;
 import java.util.List;
 
 public class OrderReport {
-	private String order_total;
+	
+	
+   
 
-    private String delivery_charge;
+   
 
-    private String products_total;
+  
 
-    private Order_details order_detail;
-
-    private String delivery_note;
-
-    private String status;
-
-    private String actual_delivery_date;
-
+   
     private String oid;
-
-    private String planned_delivery_date;
-
-    private Farm_info farm_info;
-
     private String order_date;
+    private String planned_delivery_date;
+    private String actual_delivery_date;
+    private String status;
+    private Farm_info farm_info;
+    private List<Order_details> order_detail;
+    private String delivery_note;
+    private double products_total;
+    private double delivery_charge;
+    private double order_total=delivery_charge+products_total;
 
-    public String getOrder_total ()
+
+   
+
+    public double getOrder_total ()
     {
         return order_total;
     }
 
-    public void setOrder_total (String order_total)
+    public void setOrder_total (double order_total)
     {
         this.order_total = order_total;
     }
 
-    public String getDelivery_charge ()
+    public double getDelivery_charge ()
     {
         return delivery_charge;
     }
 
-    public void setDelivery_charge (String delivery_charge)
+    public void setDelivery_charge (double delivery_charge)
     {
         this.delivery_charge = delivery_charge;
     }
 
-    public String getProducts_total ()
+    public double getProducts_total ()
     {
         return products_total;
     }
 
-    public void setProducts_total (String products_total)
+    public void setProducts_total (double products_total)
     {
         this.products_total = products_total;
     }
 
-    public Order_details getOrder_detail ()
+    public List<Order_details> getOrder_detail ()
     {
         return order_detail;
     }
 
-    public void setOrder_detail (Order_details order_detail)
+    public void setOrder_detail (List<Order_details> order_detail)
     {
         this.order_detail = order_detail;
     }

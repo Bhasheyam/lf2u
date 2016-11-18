@@ -1,15 +1,22 @@
 package DataGeneration;
 
 public class Farm_info {
-
-    private String phone;
-
-    private String address;
-
+	private String fid;
     private String name;
-
+	private String address;
+    private String phone;
     private String web;
+    
+    public String getfid()
+    {
+        return fid;
+    }
 
+    public void setfid(String fid)
+    {
+        this.fid = fid;
+    
+    }
     public String getPhone ()
     {
         return phone;

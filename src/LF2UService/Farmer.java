@@ -48,19 +48,7 @@ public class Farmer {
 		return jsonInString;
 	}
 	
-	public JsonNode ExtractJSONNODE(String jsonInString)
-	{
-		JsonNode jNode = null;
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-		   jNode = mapper.readTree(jsonInString.toString());
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	   return jNode;
-	}
+	
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -69,6 +57,10 @@ public class Farmer {
 	{
 		String out;
 		StringBuilder b=ExtractString(incomingData);
+		if(b==null)
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("no Json input").build();
+		}
 		out=use.create(b);
 		
 		
@@ -83,6 +75,10 @@ public class Farmer {
 	{boolean a;
 	StringBuilder b;
 	b=ExtractString(incomingData);
+	if(b==null)
+	{
+		return Response.status(Response.Status.NOT_FOUND).entity("no Json input").build();
+	}
 	a=use.update(fid,b);
 		if(a==false)
 		{
@@ -118,6 +114,10 @@ public class Farmer {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response showfarmzip(@QueryParam("zip")String zi)
 	{
+		if(zi==null)
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("No input zip code").build();
+		}
 		String out;
 		out=use.zip(zi);
 		System.out.println(zi);
@@ -227,9 +227,15 @@ public class Farmer {
 @Consumes(MediaType.APPLICATION_JSON)
 public Response setdeleiverycharges(@PathParam("fid")String s,InputStream incomingData, @Context UriInfo i)
 {
+	
 	boolean a;
 	StringBuilder b;
+	
 	b=ExtractString(incomingData);
+	if(b==null)
+	{
+		return Response.status(Response.Status.NOT_FOUND).entity("no Json input").build();
+	}
     a=use.deliverycharge(s,b);
 	if(a==false)
 	{

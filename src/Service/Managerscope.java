@@ -25,6 +25,10 @@ public class Managerscope implements Managersupport {
 	ObjectMapper mapper = new ObjectMapper();
 	managerreportlis m=new managerreportlis();
 	public static List<catalogmange> col=new ArrayList<catalogmange>();
+	public static List<catalogmange> getlist()
+	{
+		return col;
+	}
 	//manager report list
 	public String getreplist()
 	{

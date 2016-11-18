@@ -49,21 +49,6 @@ public class Cutomer {
 		return jsonInString;
 	}
 	
-	public JsonNode ExtractJSONNODE(String jsonInString)
-	{
-		JsonNode jNode = null;
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-		   jNode = mapper.readTree(jsonInString.toString());
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	   return jNode;
-	}
-	
-	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -71,6 +56,10 @@ public class Cutomer {
 	{
 		String out;
 		StringBuilder b=ExtractString(incomingData);
+		if(b==null)
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("no Json input").build();
+		}
 		out=use.createaccount(b);
 		
 		
@@ -86,6 +75,10 @@ public class Cutomer {
 		
 		boolean a;
 		StringBuilder b=ExtractString(incomingData);
+		if(b==null)
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("no Json input").build();
+		}
 		a=use.update(s,b);
 		if(a==false)
 		{
@@ -126,6 +119,10 @@ public class Cutomer {
 		String out;
 		StringBuilder b;
 		b=ExtractString(incomingData);
+		if(b==null)
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("no Json input").build();
+		}
 		out=use.createorder(s,b);
 		
 		if(out.equals("[]"))
