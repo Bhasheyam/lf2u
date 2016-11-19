@@ -20,6 +20,7 @@ import DataGeneration.Productdetails;
 import DataGeneration.Report;
 import DataGeneration.Report1;
 import DataGeneration.orders;
+import DataGeneration.report3;
 import LF2UService.Farmersupport;
 import dataList.*;
 import DataGeneration.Farmerdata;
@@ -413,9 +414,154 @@ public static List<Delivery> getdeliverylist()
 		return df.format(dateobj);
 	}
 	@Override
-	public String getreport(String s,int s1, String st1, String st2) throws ParseException {
+	public String getreport1(String s,int s1, String st1, String st2) {
+		String out;
+		Date enddate=null;
+		Date startdate=null;
+		String l1,l2;
+		int t1=0,t2=0,t3=0;
+		double d1=0.0d,d2=0.0d;
+		report3 rep1=new report3();
+		List<OrderReport> temp=new ArrayList<OrderReport>();
+		temp=Customerser.getorderlist();
+		List<OrderReport> temp1=new ArrayList<OrderReport>();
+		DateFormat df = new SimpleDateFormat("yyyyMMdd");
+		DateFormat df1 = new SimpleDateFormat("yyyyMMdd");
+		try {
+			 startdate=df.parse(st1);
+			 enddate=df.parse(st2);
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+		}
+		if(s1==703)
+		{
+		rep1.setFrid(s1);
+		rep1.setName("Revenue report");
+		int i=startdate.compareTo(enddate);
+		while(i!=0)
+		{
+			String g=df1.format(startdate);
+			for(OrderReport f:temp)
+			{
+				if(g.equals(f.getOrder_date())&&s.equals(f.getFarm_info().getfid()))
+				{
+					t1=t1+1;
+					String st=f.getStatus();
+							if(st.equals("cancelled"))
+							{
+								t2=t2+1;
+							}
+					if(st.equals("delivered"))
+					{
+						t3=t3+1;
+						d1=d1+f.getProducts_total();
+						d2=d2+f.getDelivery_charge();
+					}
+					
+				}
+			}
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(startdate);
+		    cal.add(Calendar.DATE, 1); 
+		    startdate=cal.getTime();
+		}
+		rep1.setDelivery_revenue(d2);
+		rep1.setOrders_cancelled(t2);
+		rep1.setOrders_placed(t1);
+		rep1.setDelivery_revenue(d1);
+		rep1.setOrders_delivered(t3);
+		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
+		 out=f1.toJson(rep1);
+		return out;
 		
-		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
-		Date startdate=df.parse(st1);
+		}
+		if(s1==704)
+		{
+			while(startdate.compareTo(enddate)!=0)
+			{
+				String g=df.format(startdate);
+				for(OrderReport f:temp)
+				{
+					if(g.equals(f.getOrder_date())&&s.equals(f.getFarm_info().getfid())){
+						if(f.getStatus().equals("delivered")){
+							temp1.add(f);
+						}
+					}
+			}
+				
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(startdate);
+			    cal.add(Calendar.DATE, 1); 
+			    startdate=cal.getTime();
+			}
+			Gson f1 = new GsonBuilder().setPrettyPrinting().create();
+			 out=f1.toJson(temp1);
+			return out;
+		}
+		return "";
+	}
+	@Override
+	public String getreport1(String s, int s1) {
+		
+		String out;
+		int t1=0,t2=0,t3=0;
+		double d1=0.0d,d2=0.0d;
+		report3 rep1=new report3();
+		List<OrderReport> temp=new ArrayList<OrderReport>();
+		temp=Customerser.getorderlist();
+		List<OrderReport> temp1=new ArrayList<OrderReport>();
+
+		if(s1==703)
+		{
+		rep1.setFrid(s1);
+		rep1.setName("Revenue report");
+			for(OrderReport f:temp)
+			{
+				if(s.equals(f.getFarm_info().getfid()))
+				{
+					t1=t1+1;
+					String st=f.getStatus();
+							if(st.equals("cancelled"))
+							{
+								t2=t2+1;
+							}
+					if(st.equals("delivered"))
+					{
+						t3=t3+1;
+						d1=d1+f.getProducts_total();
+						d2=d2+f.getDelivery_charge();
+					}
+					
+				}
+			}
+		rep1.setDelivery_revenue(d2);
+		rep1.setOrders_cancelled(t2);
+		rep1.setOrders_placed(t1);
+		rep1.setDelivery_revenue(d1);
+		rep1.setOrders_delivered(t3);
+		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
+		 out=f1.toJson(rep1);
+		return out;
+		
+		}
+		if(s1==704)
+		{
+		
+				for(OrderReport f:temp)
+				{
+					if(s.equals(f.getFarm_info().getfid())){
+						if(f.getStatus().equals("delivered")){
+							temp1.add(f);
+						}
+					}
+			}
+		}
+			
+			Gson f1 = new GsonBuilder().setPrettyPrinting().create();
+			 out=f1.toJson(temp1);
+			return out;
 	}
 }

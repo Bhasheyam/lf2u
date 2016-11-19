@@ -1,32 +1,24 @@
 package DataGeneration;
 
 public class report3 {
-	private String frid;
-
+	private int frid;
+	 private String name;
+	 private String start_date;
     private String end_date;
+    private int orders_placed;
+    private int orders_cancelled;
+    private int orders_delivered;
+    private double products_revenue;
+    private double delivery_revenue;
 
-    private String delivery_revenue;
-
-    private String orders_cancelled;
-
-    private String name;
-
-    private String orders_delivered;
-
-    private String orders_placed;
-
-    private String start_date;
-
-    private String products_revenue;
-
-    public String getFrid ()
+    public int getFrid ()
     {
         return frid;
     }
 
-    public void setFrid (String frid)
+    public void setFrid (int s1)
     {
-        this.frid = frid;
+        this.frid = s1;
     }
 
     public String getEnd_date ()
@@ -39,22 +31,22 @@ public class report3 {
         this.end_date = end_date;
     }
 
-    public String getDelivery_revenue ()
+    public double getDelivery_revenue ()
     {
         return delivery_revenue;
     }
 
-    public void setDelivery_revenue (String delivery_revenue)
+    public void setDelivery_revenue (double delivery_revenue)
     {
         this.delivery_revenue = delivery_revenue;
     }
 
-    public String getOrders_cancelled ()
+    public int getOrders_cancelled ()
     {
         return orders_cancelled;
     }
 
-    public void setOrders_cancelled (String orders_cancelled)
+    public void setOrders_cancelled (int orders_cancelled)
     {
         this.orders_cancelled = orders_cancelled;
     }
@@ -69,22 +61,22 @@ public class report3 {
         this.name = name;
     }
 
-    public String getOrders_delivered ()
+    public int getOrders_delivered ()
     {
         return orders_delivered;
     }
 
-    public void setOrders_delivered (String orders_delivered)
+    public void setOrders_delivered (int orders_delivered)
     {
         this.orders_delivered = orders_delivered;
     }
 
-    public String getOrders_placed ()
+    public int getOrders_placed ()
     {
         return orders_placed;
     }
 
-    public void setOrders_placed (String orders_placed)
+    public void setOrders_placed (int orders_placed)
     {
         this.orders_placed = orders_placed;
     }
@@ -99,12 +91,12 @@ public class report3 {
         this.start_date = start_date;
     }
 
-    public String getProducts_revenue ()
+    public double getProducts_revenue ()
     {
         return products_revenue;
     }
 
-    public void setProducts_revenue (String products_revenue)
+    public void setProducts_revenue (double products_revenue)
     {
         this.products_revenue = products_revenue;
     }

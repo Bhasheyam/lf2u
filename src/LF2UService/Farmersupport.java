@@ -27,9 +27,12 @@ public interface Farmersupport {
 
 	
 
-	String getreport(String s, int s1, String st1, String st2);
+	
 
 	String getreport(String s, int s1);
+
+	String getreport1(String s, int s1, String st1, String st2);
+	String getreport1(String s, int s1);
 
 	
 }

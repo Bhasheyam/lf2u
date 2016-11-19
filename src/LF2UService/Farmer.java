@@ -217,28 +217,33 @@ public class Farmer {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getreportlistda(@PathParam("fid")String s,@PathParam("frid")int s1,@QueryParam("start_date") String st1,@QueryParam("end_date") String st2)
 	
-	{ String out=null;
+	{ String out;
 		if(s1==701||s1==702)
 		{
 			out=use.getreport(s,s1);
+			return Response.status(200).entity(out).build();
 		}
 		if(s1==(703)||s1==704)
 		{
-			if(st1.equals(null)||st2.equals(null))
+			if(st1==null||st2==null)
 			{
-				return Response.status(Response.Status.NOT_FOUND).entity(" start and end date missing").build();
+				out=use.getreport1(s,s1);
+				if(out.equals("[]"))
+				{
+					return Response.status(Response.Status.NOT_FOUND).entity("No Report records found").build();
+				}
+				return Response.status(200).entity(out).build();
 			}
-			out=use.getreport(s,s1,st1,st2);
-		}
-		if(out.equals("[]"))
-		{
-			return Response.status(Response.Status.NOT_FOUND).entity("No Report records found").build();
-		}
-		else
-		{
+			out=use.getreport1(s,s1,st1,st2);
+			if(out.equals("[]"))
+			{
+				return Response.status(Response.Status.NOT_FOUND).entity("No Report records found").build();
+			}
 			return Response.status(200).entity(out).build();
 		}
-			
+		
+			return Response.status(Response.Status.NOT_FOUND).entity("No Report records found").build();
+		
 		
 	}
 	
