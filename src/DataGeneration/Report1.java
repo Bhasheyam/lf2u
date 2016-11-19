@@ -3,18 +3,18 @@ package DataGeneration;
 import java.util.List;
 
 public class Report1 {
-	private String frid;
+	private int frid;
 
     private String name;
 
-    private order orders;
+    private orders orders;
 
-    public String getFrid ()
+    public int getFrid ()
     {
         return frid;
     }
 
-    public void setFrid (String frid)
+    public void setFrid (int frid)
     {
         this.frid = frid;
     }
@@ -29,12 +29,12 @@ public class Report1 {
         this.name = name;
     }
 
-    public order getOrders ()
+    public orders getOrders ()
     {
         return orders;
     }
 
-    public void setOrders (order orders)
+    public void setOrders (orders orders)
     {
         this.orders = orders;
     }

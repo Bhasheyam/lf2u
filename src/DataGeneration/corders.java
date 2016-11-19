@@ -12,10 +12,14 @@ public class corders {
     {
     	this.status="open";
     	this.order_date=Idgen.getcurrentdate();
-    	this.actual_delivery_date=Idgen.getnextday();
+    	this.planned_delivery_date=Idgen.getnextday();
     	
     }
 
+     public void setactual(String s)
+     {
+    	 this.planned_delivery_date=s;
+     }
     public String getFid ()
     {
         return fid;

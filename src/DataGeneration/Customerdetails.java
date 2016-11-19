@@ -4,10 +4,9 @@ public class Customerdetails {
 	
 	
 	
-	
-	private String name;
 	private String cid;
-    private String street;
+	private String name;
+	private String street;
     private String zip;
     private String phone;
     private String email;
@@ -19,7 +18,7 @@ public class Customerdetails {
     }
     public Customerdetails()
 	{
-		this.cid=Idgen.fid();
+		this.cid=Idgen.cid();
 	}
     public void setcid(String s)
     {

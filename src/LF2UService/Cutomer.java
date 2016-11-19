@@ -127,7 +127,7 @@ public class Cutomer {
 		
 		if(out.equals("[]"))
 		{
-			return Response.status(Response.Status.NOT_FOUND).entity("customer account not found for ID: " + s).build();
+			return Response.status(Response.Status.NOT_FOUND).entity("Invalid entry order cannot be processed, Either product or customer id is invalid ").build();
 		}
 		else
 		{

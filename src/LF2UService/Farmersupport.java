@@ -26,4 +26,10 @@ public interface Farmersupport {
 	String getdeliverycharges(String s);
 
 	
+
+	String getreport(String s, int s1, String st1, String st2);
+
+	String getreport(String s, int s1);
+
+	
 }

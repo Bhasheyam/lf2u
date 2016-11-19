@@ -120,7 +120,7 @@ public class Farmer {
 		}
 		String out;
 		out=use.zip(zi);
-		System.out.println(zi);
+		System.out.println(zi+"is checked");
 		if(out.equals("[]"))
 		{
 			return Response.status(Response.Status.NOT_FOUND).entity("Farm not found for ID: " + zi).build();
@@ -215,14 +215,34 @@ public class Farmer {
 	@Path("/{fid}/reports/{frid}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getreportlistda(@PathParam("fid")String s,@PathParam("frid")String s1,@QueryParam("start_date") String st1,@QueryParam("end_date") String st2)
+	public Response getreportlistda(@PathParam("fid")String s,@PathParam("frid")int s1,@QueryParam("start_date") String st1,@QueryParam("end_date") String st2)
 	
-	{
-		return null;
+	{ String out=null;
+		if(s1==701||s1==702)
+		{
+			out=use.getreport(s,s1);
+		}
+		if(s1==(703)||s1==704)
+		{
+			if(st1.equals(null)||st2.equals(null))
+			{
+				return Response.status(Response.Status.NOT_FOUND).entity(" start and end date missing").build();
+			}
+			out=use.getreport(s,s1,st1,st2);
+		}
+		if(out.equals("[]"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("No Report records found").build();
+		}
+		else
+		{
+			return Response.status(200).entity(out).build();
+		}
+			
 		
 	}
 	
-@Path("/{fid}/delivery_charge ")
+@Path("/{fid}/delivery_charge")
 @POST
 @Consumes(MediaType.APPLICATION_JSON)
 public Response setdeleiverycharges(@PathParam("fid")String s,InputStream incomingData, @Context UriInfo i)
@@ -248,11 +268,12 @@ else{
 	return Response.created(builder.build()).build();
 }
 }
-@Path("/{fid}/delivery_charge ")
+@Path("/{fid}/delivery_charge")
 @GET
 @Produces(MediaType.APPLICATION_JSON)
 public Response setdeleiverycharges(@PathParam("fid")String s)
 {
+	System.out.print("delvery charge");
 	String out;
 	out=use.getdeliverycharges(s);
 	if(out.equals("[]"))

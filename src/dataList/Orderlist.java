@@ -3,17 +3,17 @@ package dataList;
 import java.util.ArrayList;
 import java.util.List;
 
-import DataGeneration.order;
+import DataGeneration.orders;
 
 public class Orderlist {
-	List<order> mastero=new ArrayList<order>();
+	List<orders> mastero=new ArrayList<orders>();
 	
 	
-	public void addlist(order o)
+	public void addlist(orders o)
 	{
 		mastero.add(o);
 	}
-	public List<order> getorderlist()
+	public List<orders> getorderlist()
 	{
 		return this.mastero;
 	}

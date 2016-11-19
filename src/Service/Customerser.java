@@ -1,6 +1,7 @@
 package Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,7 +36,11 @@ public static List<orderget> col3=new ArrayList<orderget>();
 public static List<OrderReport> col5=new ArrayList<OrderReport>();
  List<corders> col4=new ArrayList<corders>();
 
-public static List<corders> getcorder()
+ public static List<Customerdetails> getcustomer()
+ {
+ 	return col;
+ }
+ public static List<corders> getcorder()
 {
 	return col2;
 }
@@ -51,14 +56,22 @@ public static void setorderget(List<orderget> s)
 {
 	col3=s;
 }
+public static List<OrderReport> getorderlist() {
+	
+	return col5;
+}
+public static void setorderlist(List<OrderReport> s)
+{
+	col5=s;
+}
 
 	@Override
 	public String createaccount(StringBuilder b) {
 		String out;
-		Customerdetails h;
+		 
 		//mapping the value
 		Gson f = new Gson();
-		h=f.fromJson(b.toString(), Customerdetails.class);
+		Customerdetails h=f.fromJson(b.toString(), Customerdetails.class);
 		//adding to a list to have concolidated one.
 		
 		col.add(h);
@@ -115,9 +128,25 @@ public static void setorderget(List<orderget> s)
 		 out=f1.toJson(use1);
 		 return out;	
 	}
+	public boolean verifycustomer(String s)
+	{
+		boolean a=false;
+		String c1;
+		for(Customerdetails c:col)
+		{c1=c.getcid();
+		if(c1.equals(s))
+		{
+			a=true;
+		}
+			
+		}
+	return a;	
+	}
 	@Override
 	public String createorder(String s, StringBuilder b) {
-	      String out,c,c1,c2,c3,c4,c5,c6,c7,c8,c9;
+	      String out,c,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13;
+	      String[] zip=null;
+	      boolean b1=false,b2=true;
 	      place_order p;
 	      Farm_info far=new Farm_info();
 	      List<Farmerdata> temp=new ArrayList<Farmerdata>();
@@ -125,34 +154,69 @@ public static void setorderget(List<orderget> s)
 	      List<Delivery> temp3=new ArrayList<Delivery>();
 	      List<catalogmange> temp4=new ArrayList<catalogmange>();
 	      List<Order_details> orderlist = new ArrayList<Order_details>();
+	      b2=verifycustomer(s);
+	      if(b2==false)
+	      {
+	    	  return "[]";
+	      }
+	      
 	      Order_detail[] order;
-	      double d1,d2,d3,d4=0.0d;
+	      double d1,d2,d3,d4=0.0d,d5=0.0d,d6;
 	      OrderReport rep=new OrderReport();
 	      Order_details repo=new Order_details();
-	      	  
-	      //mapping
+	      
+	      
+	      //mapping and keeping a reference.
 	      Gson f=new Gson();
 	      p=f.fromJson(b.toString(), place_order.class);
 	      col1.add(p);
-	
-	//mapping th order details
+	  	String t=p.getFid();
+      	String t1=p.getoid();
+	    //checking the zip code
+      	temp=Farmservice.getfarmlist();
+	      c9=p.getFid();
+      	  for(Farmerdata d:temp)
+      	  {
+      		  c10=d.getfid();
+      		  if(c9.equals(c10))
+      		  {
+      			 zip=d.getDelivers_to(); 
+      		  }
+      		  
+      	  }
+      	  for(Customerdetails h:col)
+      	  {
+      		  c11=h.getcid();
+      		  if(c11.equals(s))
+      		  {
+      			  c12=h.getZip();
+      			for(String zips:zip)
+      			{
+      				if(zips.equals(c12))
+      				{
+      					b1=true;
+      				}
+      			}
+            	  if(b1==false)
+            	  {
+            		  return "no farm on this zip";
+            	  }
+      		  }
+      	  }
+      	  
+      	//mapping th order details
 	      	corders o=new corders();
-	      	String t=p.getFid();
-	      	String t1=p.getoid();
+	      
 	      	o.setFid(t);
 	      	o.setOid(t1);
 	      	col2.add(o);
-	
-	//sending json class
-	      	oid o1=new oid();
-	      	o1.set(t1);
 	//updating the order report
 	      	 rep.setOid(t1);
 	      	 rep.setOrder_date(o.getOrder_date());
 	      	 rep.setPlanned_delivery_date(o.getPlanned_delivery_date());
 	      	 rep.setActual_delivery_date(o.getActual_delivery_date());
 	      	 rep.setStatus(o.getStatus());
-	      	 temp=Farmservice.getfarmlist();
+	      	 
 	      	temp2=Farmservice.getproductlist();
 	      	temp3=Farmservice.getdeliverylist();
 	      	temp4=Managerscope.getlist();
@@ -160,12 +224,13 @@ public static void setorderget(List<orderget> s)
 	      	 for(Farmerdata fa:temp)
 	      	 {
 	      		 c=fa.getfid();
-	      		 if(c.equals(t1))
+	      		 if(c.equals(t))
 	      		 {
 	      			 far=fa.getFarm_info();
 	      		 }
 	      	 }
-	      	 far.setfid(t1);
+	      	
+	      	 far.setfid(t);
 	      	 rep.setFarm_info(far);
 	      	 rep.setDelivery_note(p.getDelivery_note());
 	      	 for(Delivery dp:temp3)
@@ -173,7 +238,8 @@ public static void setorderget(List<orderget> s)
 	      		 c2=dp.getid();
 	      		 if(c2.equals(t))
 	      		 {
-	      			 rep.setDelivery_charge(dp.getcharges());
+	      			 d5=dp.getcharges();
+	      			 rep.setDelivery_charge(d5);
 	      		 }
 	      	 }
 	      	 for(Order_detail h:order)
@@ -202,17 +268,31 @@ public static void setorderget(List<orderget> s)
 	      				 if(c8.equals(c7))
 	      				 {
 	      					 repo.setName(lk.getName());
-	      					 orderlist.add(repo);
+	      					 if(repo.getFspid()==null)
+	      					 {
+	      						 return "[]";
+	      					 }
+	      					 else{
+	      						orderlist.add(repo);
+	      					 }
+	      					 
 	      					 
 	      				 }
 	      			 }
 	      		 } 
 	      		 
 	      	 }
-	      	 
 	      	 }
+	      	 rep.setOrder_detail(orderlist);
 	      	 rep.setProducts_total(d4);
+	      	 d6=d4+d5;
+	      	 rep.setOrder_total(d6);
 			 col5.add(rep);
+		
+		
+		//sending json class
+		      	oid o1=new oid();
+		      	o1.set(t1);
 	//update view order
 	      	orderget k=new orderget();
 	      	k.set(s);
@@ -249,7 +329,7 @@ public String Showorder(String s) {
 @Override
 public String cancel(String s, String s1) {
 	String out;
-	String g,ck,ck1,ck2;
+	String g,ck,ck1,ck2,c1;
 	Idgen i=new Idgen();
 	for(corders e1:col2)
 	{
@@ -268,7 +348,16 @@ public String cancel(String s, String s1) {
 			d.Support("cancelled");
 			Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 			 out=f1.toJson(d);
+			 for(OrderReport fl:col5)
+			 { c1=fl.getOid();
+			 if(c1.equals(s1))
+			 {
+				 fl.setStatus("cancelled");
+			 }
+				 
+			 }
 			 return out;
+			
 			}
 			else 
 			{
@@ -302,7 +391,7 @@ public String getorderdetails(String s, String s1) {
 		}
 		else
 		{
-			return "invalid";
+			return "invalid order and customer id";
 		}
 	}
 	if(a==true)
@@ -320,6 +409,7 @@ public String getorderdetails(String s, String s1) {
 	 out=f1.toJson(use);
 	 return out;
 }
+
 }
 
 	

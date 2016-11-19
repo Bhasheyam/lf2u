@@ -1,6 +1,10 @@
 package Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -8,8 +12,13 @@ import com.google.gson.GsonBuilder;
 
 import DataGeneration.Customerdetails;
 import DataGeneration.Farmerdata;
+import DataGeneration.Idgen;
+import DataGeneration.OrderReport;
+import DataGeneration.Ordered_by;
 import DataGeneration.Productdetails;
 import DataGeneration.Report;
+import DataGeneration.Report1;
+import DataGeneration.orders;
 import LF2UService.Farmersupport;
 import dataList.*;
 import DataGeneration.Farmerdata;
@@ -261,19 +270,18 @@ public static List<Delivery> getdeliverylist()
 		boolean a=false;
 		String l;
 		
-		Delivery d=new Delivery();
+		Delivery d1=new Delivery();
 		
-		deliverysup d1=new deliverysup();
 		for(Farmerdata r:col)
 		{
 			l=r.getfid();
 			if(s.equals(l))
 	        {
 				Gson g=new Gson();
-				d1=g.fromJson(b.toString(),deliverysup.class);
-				d.setfid(s);
-				d.setcharge(d1.getcharges());
-				col3.add(d);
+				d1=g.fromJson(b.toString(),Delivery.class);
+				r.setdeliverycharges(d1.getcharges());
+				d1.setfid(s);
+				col3.add(d1);
 				a=true;
 	      }
 	  	}
@@ -298,5 +306,107 @@ public static List<Delivery> getdeliverylist()
 		}
 		
 		return"[]";
+	}
+	public  String getcurrentdate()
+	{
+		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
+		Date dateobj = new Date();
+		return df.format(dateobj);
+	}
+	
+	public   String getnextday()
+	{
+		
+		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
+		Date dateobj = new Date();
+		Calendar cal = Calendar.getInstance();
+	    cal.setTime(dateobj);
+	    cal.add(Calendar.DATE, 1); 
+	    dateobj=cal.getTime();
+		return df.format(dateobj);
+	}
+	public String getcid(String s)
+	{ String out="",c1;
+		List<orderget> temp4=new ArrayList<orderget>();
+		temp4=Customerser.getorderget();
+		for(orderget k:temp4)
+		{
+			c1=k.getoid();
+			if(c1.equals(s))
+			{
+				out=k.getcid();
+			}
+		}
+		return out;
+		
+	}
+	@Override
+	public String getreport(String s, int s1) {
+		String out, key,cid,c1,c2,c3;
+		String l1,l2;
+		List<Report1> temp=new ArrayList<Report1>();
+		Report1 rep1=new Report1();
+		orders ord=new orders();
+		Ordered_by ord1=new Ordered_by();
+		List<OrderReport> temp1=new ArrayList<OrderReport>();
+		List<Customerdetails> temp2=new ArrayList<Customerdetails>();
+		temp1=Customerser.getorderlist();
+		temp2=Customerser.getcustomer();
+		
+		if(s1==701)
+		{
+			key=getcurrentdate();
+			l1="Orders to deliver today";
+		}
+		else
+		{
+			key=getnextday();
+			l1="Orders to deliver tomorrow";
+		}
+		for(OrderReport o:temp1)
+		{
+			cid=getcid(o.getOid());
+			c1=o.getPlanned_delivery_date();
+			c2=o.getFarm_info().getfid();
+			if(c2.equals(s)&& c1.equals(key))
+			{
+				rep1.setFrid(s1);
+				rep1.setName(l1);
+				ord.setOrder_detail(o.getOrder_detail());
+				ord.setoid(o.getOid());
+				ord.setActual_delivery_date(o.getActual_delivery_date());
+				ord.setDelivery_charge(o.getDelivery_charge());
+				ord.setOrder_date(o.getOrder_date());
+				ord.setOrder_total(o.getOrder_total());
+				ord.setProducts_total(o.getProducts_total());
+				ord.setPlanned_delivery_date(o.getPlanned_delivery_date());
+				ord.setNote(o.getDelivery_note());
+				ord.setStatus(o.getStatus());
+				for(Customerdetails c:temp2)
+				{
+					c3=c.getcid();
+					if(c3.equals(cid))
+					{
+						ord1.setName(c.getName());
+						ord1.setEmail(c.getEmail());
+						ord1.setPhone(c.getPhone());
+						ord.setDelivery_address(c.getStreet()+" "+c.getZip());	
+				}
+				}
+				ord.setOrdered_by(ord1);
+				rep1.setOrders(ord);
+				temp.add(rep1);
+			}
+		}
+			
+			
+		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
+		 out=f1.toJson(temp);
+		return out;
+	}
+	@Override
+	public String getreport(String s,int s1, String st1, String st2) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

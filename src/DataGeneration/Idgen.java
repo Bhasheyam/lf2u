@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Idgen {
 	static int counter =0;
-	static int counterc=0;
+	static int counterc=50;
 	static int countero=0;
 	static int counterp=0;
 	static int countercp=0;
@@ -45,7 +45,7 @@ public class Idgen {
 		return df.format(dateobj);
 	}
 	
-	public static String getnextday()
+	public static  String getnextday()
 	{
 		
 		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
@@ -56,7 +56,7 @@ public class Idgen {
 	    dateobj=cal.getTime();
 		return df.format(dateobj);
 	}
-	public static String getyest()
+	public  String getyest()
 	{
 		
 		DateFormat df = new SimpleDateFormat("yyyyMMdd ");

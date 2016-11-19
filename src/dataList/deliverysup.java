@@ -1,15 +1,16 @@
 package dataList;
 
 public class deliverysup {
-	private double charges;
+	
+	private double delivery_charge;
 	public void setcharge(double d)
 	{
-		this.charges=d;
+		this.delivery_charge=d;
 	}
 
 public double getcharges()
 {
-	return this.charges;
+	return this.delivery_charge;
 }
 
 

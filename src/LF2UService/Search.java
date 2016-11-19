@@ -21,10 +21,28 @@ public class Search {
 	public Response getdetails(@QueryParam("topic")String topic,@QueryParam("key")String key)
 	{
 		String out;
+		if(topic.isEmpty())
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("key or value is null").build();
+			
+		}
 		out=use.search(topic,key);
 		
+		if(out.equals("wrong"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("invalid  topic"+topic).build();
+		}
 		
-		 return Response.status(200).entity(out).build();
+		if(out.equals("[]"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("no result for the search").build();
+		}
+		else
+		{
+			return Response.status(200).entity(out).build();
+		}
+	
+		
 	}
 
 	
