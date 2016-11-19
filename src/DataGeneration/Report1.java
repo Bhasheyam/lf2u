@@ -7,7 +7,7 @@ public class Report1 {
 
     private String name;
 
-    private orders orders;
+    private List<orders> orders;
 
     public int getFrid ()
     {
@@ -29,12 +29,12 @@ public class Report1 {
         this.name = name;
     }
 
-    public orders getOrders ()
+    public List<orders> getOrders ()
     {
         return orders;
     }
 
-    public void setOrders (orders orders)
+    public void setOrders (List<orders> orders)
     {
         this.orders = orders;
     }

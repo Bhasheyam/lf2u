@@ -1,6 +1,7 @@
 package Service;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -314,20 +315,11 @@ public static List<Delivery> getdeliverylist()
 		return df.format(dateobj);
 	}
 	
-	public   String getnextday()
-	{
-		
-		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
-		Date dateobj = new Date();
-		Calendar cal = Calendar.getInstance();
-	    cal.setTime(dateobj);
-	    cal.add(Calendar.DATE, 1); 
-	    dateobj=cal.getTime();
-		return df.format(dateobj);
-	}
+	
 	public String getcid(String s)
 	{ String out="",c1;
 		List<orderget> temp4=new ArrayList<orderget>();
+		
 		temp4=Customerser.getorderget();
 		for(orderget k:temp4)
 		{
@@ -345,9 +337,10 @@ public static List<Delivery> getdeliverylist()
 		String out, key,cid,c1,c2,c3;
 		String l1,l2;
 		List<Report1> temp=new ArrayList<Report1>();
-		Report1 rep1=new Report1();
-		orders ord=new orders();
-		Ordered_by ord1=new Ordered_by();
+		List<orders> ordl=new ArrayList<orders>();
+		
+		
+		
 		List<OrderReport> temp1=new ArrayList<OrderReport>();
 		List<Customerdetails> temp2=new ArrayList<Customerdetails>();
 		temp1=Customerser.getorderlist();
@@ -363,15 +356,19 @@ public static List<Delivery> getdeliverylist()
 			key=getnextday();
 			l1="Orders to deliver tomorrow";
 		}
+		Report1 rep1=new Report1();
+		rep1.setFrid(s1);
+		rep1.setName(l1);
 		for(OrderReport o:temp1)
 		{
+			orders ord=new orders();
+			Ordered_by ord1=new Ordered_by();
 			cid=getcid(o.getOid());
 			c1=o.getPlanned_delivery_date();
 			c2=o.getFarm_info().getfid();
 			if(c2.equals(s)&& c1.equals(key))
 			{
-				rep1.setFrid(s1);
-				rep1.setName(l1);
+				
 				ord.setOrder_detail(o.getOrder_detail());
 				ord.setoid(o.getOid());
 				ord.setActual_delivery_date(o.getActual_delivery_date());
@@ -394,19 +391,31 @@ public static List<Delivery> getdeliverylist()
 				}
 				}
 				ord.setOrdered_by(ord1);
-				rep1.setOrders(ord);
-				temp.add(rep1);
+
 			}
+			ordl.add(ord);
 		}
-			
-			
+		rep1.setOrders(ordl);	
+		temp.add(rep1);
 		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 		 out=f1.toJson(temp);
 		return out;
 	}
+	public   String getnextday()
+	{
+		
+		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
+		Date dateobj = new Date();
+		Calendar cal = Calendar.getInstance();
+	    cal.setTime(dateobj);
+	    cal.add(Calendar.DATE, 1); 
+	    dateobj=cal.getTime();
+		return df.format(dateobj);
+	}
 	@Override
-	public String getreport(String s,int s1, String st1, String st2) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getreport(String s,int s1, String st1, String st2) throws ParseException {
+		
+		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
+		Date startdate=df.parse(st1);
 	}
 }

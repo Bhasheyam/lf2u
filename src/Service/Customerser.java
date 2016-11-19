@@ -163,7 +163,7 @@ public static void setorderlist(List<OrderReport> s)
 	      Order_detail[] order;
 	      double d1,d2,d3,d4=0.0d,d5=0.0d,d6;
 	      OrderReport rep=new OrderReport();
-	      Order_details repo=new Order_details();
+	      
 	      
 	      
 	      //mapping and keeping a reference.
@@ -203,6 +203,8 @@ public static void setorderlist(List<OrderReport> s)
             	  }
       		  }
       	  }
+      	//update view order
+	      
       	  
       	//mapping th order details
 	      	corders o=new corders();
@@ -210,6 +212,12 @@ public static void setorderlist(List<OrderReport> s)
 	      	o.setFid(t);
 	      	o.setOid(t1);
 	      	col2.add(o);
+	      	//customer and order mapping
+	    	orderget k=new orderget();
+	      	k.set(s);
+	      	k.setoid(t1);
+	      	k.setorders(o);
+	      	col3.add(k);
 	//updating the order report
 	      	 rep.setOid(t1);
 	      	 rep.setOrder_date(o.getOrder_date());
@@ -244,6 +252,7 @@ public static void setorderlist(List<OrderReport> s)
 	      	 }
 	      	 for(Order_detail h:order)
 	      	 {
+	      		Order_details repo=new Order_details();
 	      		 c4=h.getFspid();
 	      		 d1=h.getamount();
 	      	 
@@ -268,37 +277,28 @@ public static void setorderlist(List<OrderReport> s)
 	      				 if(c8.equals(c7))
 	      				 {
 	      					 repo.setName(lk.getName());
-	      					 if(repo.getFspid()==null)
-	      					 {
-	      						 return "[]";
-	      					 }
-	      					 else{
-	      						orderlist.add(repo);
-	      					 }
-	      					 
+	      					 	 
 	      					 
 	      				 }
 	      			 }
 	      		 } 
-	      		 
+	      		
 	      	 }
+	      	 orderlist.add(repo);
 	      	 }
 	      	 rep.setOrder_detail(orderlist);
 	      	 rep.setProducts_total(d4);
 	      	 d6=d4+d5;
 	      	 rep.setOrder_total(d6);
-			 col5.add(rep);
+			 
 		
 		
 		//sending json class
 		      	oid o1=new oid();
 		      	o1.set(t1);
-	//update view order
-	      	orderget k=new orderget();
-	      	k.set(s);
-	      	k.setoid(t1);
-	      	k.setorders(o);
-	      	col3.add(k);
+	
+	      	//adding to the master
+	      	col5.add(rep);
 	//getClass.converting json
 		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 		 out=f1.toJson(o1);
@@ -381,21 +381,21 @@ public String getorderdetails(String s, String s1) {
 	boolean a=false;
 	OrderReport use=new OrderReport();
 	
-	for(orderget k:col3)
-	{
-		c=k.getcid();
-		c1=k.getoid();
-		if(c.equals(s)&&c1.equals(s1))
-		{
-			a=true;
-		}
-		else
-		{
-			return "invalid order and customer id";
-		}
-	}
-	if(a==true)
-	{
+//	for(orderget k:col3)
+//	{
+//		c=k.getcid();
+//		c1=k.getoid();
+//		if(c.equals(s)&&c1.equals(s1))
+//		{
+//			a=true;
+//		}
+//		else
+//		{
+//			return "invalid order and customer id";
+//		}
+//	}
+//	if(a==true)
+//	{
 	for(OrderReport o:col5)
 	{
 		c=o.getOid();
@@ -404,7 +404,7 @@ public String getorderdetails(String s, String s1) {
 			use=o;
 		}
 	}
-	}
+	//}
 	Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 	 out=f1.toJson(use);
 	 return out;
