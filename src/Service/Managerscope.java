@@ -611,6 +611,11 @@ public class Managerscope implements Managersupport {
 	    dateobj=cal.getTime();
 		return df.format(dateobj);
 	}
+	public void reset() {
+		col.clear();
+		
+		
+	}
 	
 	
 	

@@ -43,6 +43,10 @@ public static List<Delivery> getdeliverylist()
 {
 	return col1;
 }
+public static List<Productlist> getproductlist2()
+{
+	return col2;
+}
 
 	@Override
 	public String create(Farmerdata f) {
@@ -557,5 +561,12 @@ public static List<Delivery> getdeliverylist()
 			Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 			 out=f1.toJson(temp1);
 			return out;
+	}
+	public void reset() {
+		col.clear();
+		col1.clear();
+		col2.clear();
+		col3.clear();
+		
 	}
 }

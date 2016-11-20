@@ -1,6 +1,5 @@
 package Service;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -47,13 +46,13 @@ public class Searchresuts implements searchsupport {
 	{
 		List<Customerdetails> temp=new ArrayList<Customerdetails>();
 		String use;
-		boolean a1=false;
+		 
 		col1=Customerser.getcustomer();
 		for(Customerdetails f2:col1)
 		{
 			Gson f1=new GsonBuilder().setPrettyPrinting().create();
 	         use=f1.toJson(f2);
-	         a1= Pattern.compile(Pattern.quote(key), Pattern.CASE_INSENSITIVE).matcher(use).find();
+	         boolean a1= Pattern.compile(Pattern.quote(key), Pattern.CASE_INSENSITIVE).matcher(use).find();
 	         if(a1=true)
 	         {
 	        	 temp.add(f2);
@@ -68,13 +67,13 @@ public class Searchresuts implements searchsupport {
 	{
 		List<OrderReport> temp=new ArrayList<OrderReport>();	
 		String use;
-		boolean a1=false;
+		
 		col2=Customerser.getorderlist();
 		for(OrderReport f2:col2)
 		{
 			Gson f1=new GsonBuilder().setPrettyPrinting().create();
 	         use=f1.toJson(f2);
-	         a1= Pattern.compile(Pattern.quote(key), Pattern.CASE_INSENSITIVE).matcher(use).find();
+	         boolean a1= Pattern.compile(Pattern.quote(key), Pattern.CASE_INSENSITIVE).matcher(use).find();
 	         if(a1=true)
 	         {
 	        	 temp.add(f2);
@@ -106,5 +105,5 @@ public class Searchresuts implements searchsupport {
 		}
 		return Result;
 	}
-
+	
 }

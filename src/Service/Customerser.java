@@ -35,7 +35,10 @@ public static List<orderget> col3=new ArrayList<orderget>();
 public static List<OrderReport> col5=new ArrayList<OrderReport>();
  List<corders> col4=new ArrayList<corders>();
 
-
+ public static List<place_order> getplaceorder()
+ {
+ 	return col1;
+ }
  public static List<Customerdetails> getcustomer()
  {
  	return col;
@@ -68,14 +71,8 @@ public static void setorderlist(List<OrderReport> s)
 	@Override
 	public String createaccount(Customerdetails h) {
 		String out;
-		 
-		
-		//adding to a list to have concolidated one.
-		
 		col.add(h);
 		cid g=new cid();
-		
-		
 		String p=h.getcid();
 		g.set(p);
 		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
@@ -92,7 +89,6 @@ public static void setorderlist(List<OrderReport> s)
 			String check=h.getcid();
 			if(check.equals(s))
 			{
-				
 				int i=col.indexOf(h);				
 				d.setcid(check);
 				col.set(i,d);
@@ -111,7 +107,7 @@ public static void setorderlist(List<OrderReport> s)
 	}
 	@Override
 	public String getcustomer(String s) {
-		 List<Customerdetails> use1=new ArrayList<Customerdetails>();
+		 
 		String out;
 		
 		for(Customerdetails h:col)
@@ -119,12 +115,13 @@ public static void setorderlist(List<OrderReport> s)
 			String check=h.getcid();
 			if(check.equals(s))
 			{
-			use1.add(h);
+				Gson f1 = new GsonBuilder().setPrettyPrinting().create();
+				 out=f1.toJson(h);
+				 return out;
 			}
 		}
-		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
-		 out=f1.toJson(use1);
-		 return out;	
+		
+		 return "[]";	
 	}
 	public boolean verifycustomer(String s)
 	{
@@ -374,24 +371,25 @@ public String cancel(String s, String s1) {
 }
 @Override
 public String getorderdetails(String s, String s1) {
-	String out,c;
+	String out,c,c1;
+	boolean a=false;
 	OrderReport use=new OrderReport();
 	
-//	for(orderget k:col3)
-//	{
-//		c=k.getcid();
-//		c1=k.getoid();
-//		if(c.equals(s)&&c1.equals(s1))
-//		{
-//			a=true;
-//		}
-//		else
-//		{
-//			return "invalid order and customer id";
-//		}
-//	}
-//	if(a==true)
-//	{
+	for(orderget k:col3)
+	{
+		c=k.getcid();
+		c1=k.getoid();
+		if(c.equals(s)&&c1.equals(s1))
+		{
+			a=true;
+		}
+		else
+		{
+			return "invalid order and customer id";
+		}
+	}
+	if(a==true)
+	{
 	for(OrderReport o:col5)
 	{
 		c=o.getOid();
@@ -400,10 +398,20 @@ public String getorderdetails(String s, String s1) {
 			use=o;
 		}
 	}
-	//}
+	
 	Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 	 out=f1.toJson(use);
 	 return out;
+	}
+	return"[]";
+}
+public void reset()
+{
+	col.clear();
+	col1.clear();
+	col2.clear();
+	col3.clear();
+	col5.clear();
 }
 
 }

@@ -72,5 +72,6 @@ public class deliverystatus implements Deliversupport {
 		Customerser.setorderlist(temp3);
 		return a;
 	}
+	
 
 }

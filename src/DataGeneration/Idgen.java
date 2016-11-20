@@ -56,6 +56,15 @@ public class Idgen {
 	    dateobj=cal.getTime();
 		return df.format(dateobj);
 	}
+	public void reset() {
+		counter =0;
+		counterc=50;
+		 countero=0;
+	 counterp=0;
+	countercp=0;
+		
+		
+	}
 	
 	
 }
