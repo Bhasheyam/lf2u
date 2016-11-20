@@ -227,6 +227,7 @@ public class Farmer {
 		{
 			if(st1==null||st2==null)
 			{
+				
 				out=use.getreport1(s,s1);
 				if(out.equals("[]"))
 				{

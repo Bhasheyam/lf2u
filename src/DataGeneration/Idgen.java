@@ -40,7 +40,7 @@ public class Idgen {
 	}
 	public static String getcurrentdate()
 	{
-		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
+		DateFormat df = new SimpleDateFormat("yyyyMMdd");
 		Date dateobj = new Date();
 		return df.format(dateobj);
 	}
@@ -48,7 +48,7 @@ public class Idgen {
 	public static  String getnextday()
 	{
 		
-		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
+		DateFormat df = new SimpleDateFormat("yyyyMMdd");
 		Date dateobj = new Date();
 		Calendar cal = Calendar.getInstance();
 	    cal.setTime(dateobj);
@@ -59,7 +59,7 @@ public class Idgen {
 	public  String getyest()
 	{
 		
-		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
+		DateFormat df = new SimpleDateFormat("yyyyMMdd");
 		Date dateobj = new Date();
 		Calendar cal = Calendar.getInstance();
 	    cal.setTime(dateobj);

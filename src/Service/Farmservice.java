@@ -405,7 +405,7 @@ public static List<Delivery> getdeliverylist()
 	public   String getnextday()
 	{
 		
-		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
+		DateFormat df = new SimpleDateFormat("yyyyMMdd");
 		Date dateobj = new Date();
 		Calendar cal = Calendar.getInstance();
 	    cal.setTime(dateobj);
@@ -416,8 +416,9 @@ public static List<Delivery> getdeliverylist()
 	@Override
 	public String getreport1(String s,int s1, String st1, String st2) {
 		String out;
-		Date enddate=null;
-		Date startdate=null;
+		Date enddate=new Date();
+		Date startdate=new Date();
+		DateFormat df1 = new SimpleDateFormat("yyyyMMdd");
 		String l1,l2;
 		int t1=0,t2=0,t3=0;
 		double d1=0.0d,d2=0.0d;
@@ -425,27 +426,38 @@ public static List<Delivery> getdeliverylist()
 		List<OrderReport> temp=new ArrayList<OrderReport>();
 		temp=Customerser.getorderlist();
 		List<OrderReport> temp1=new ArrayList<OrderReport>();
-		DateFormat df = new SimpleDateFormat("yyyyMMdd");
-		DateFormat df1 = new SimpleDateFormat("yyyyMMdd");
+		
 		try {
-			 startdate=df.parse(st1);
-			 enddate=df.parse(st2);
+			 startdate=df1.parse(st1);
+			 enddate=df1.parse(st2);
 		} catch (ParseException e) {
 			
 			e.printStackTrace();
 		}
+		Calendar start = Calendar.getInstance();
+		start.setTime(startdate);
+		Calendar end = Calendar.getInstance();
+		end.setTime(enddate);
 		if(s1==703)
 		{
+			
 		rep1.setFrid(s1);
 		rep1.setName("Revenue report");
-		int i=startdate.compareTo(enddate);
-		while(i!=0)
+		
+		for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1),date = start.getTime())
 		{
-			String g=df1.format(startdate);
+			
+			 String g=df1.format(date);
+			
+		
 			for(OrderReport f:temp)
 			{
-				if(g.equals(f.getOrder_date())&&s.equals(f.getFarm_info().getfid()))
+				 String h=f.getOrder_date();
+				  
+					
+				if(g.equals(h)&&s.equals(f.getFarm_info().getfid()))
 				{
+					
 					t1=t1+1;
 					String st=f.getStatus();
 							if(st.equals("cancelled"))
@@ -454,18 +466,17 @@ public static List<Delivery> getdeliverylist()
 							}
 					if(st.equals("delivered"))
 					{
+						
 						t3=t3+1;
 						d1=d1+f.getProducts_total();
 						d2=d2+f.getDelivery_charge();
+						
 					}
 					
 				}
 			}
 			
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(startdate);
-		    cal.add(Calendar.DATE, 1); 
-		    startdate=cal.getTime();
+			
 		}
 		rep1.setDelivery_revenue(d2);
 		rep1.setOrders_cancelled(t2);
@@ -479,9 +490,9 @@ public static List<Delivery> getdeliverylist()
 		}
 		if(s1==704)
 		{
-			while(startdate.compareTo(enddate)!=0)
+			for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1),date = start.getTime())
 			{
-				String g=df.format(startdate);
+				String g=df1.format(date);
 				for(OrderReport f:temp)
 				{
 					if(g.equals(f.getOrder_date())&&s.equals(f.getFarm_info().getfid())){
@@ -491,11 +502,7 @@ public static List<Delivery> getdeliverylist()
 					}
 			}
 				
-				
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(startdate);
-			    cal.add(Calendar.DATE, 1); 
-			    startdate=cal.getTime();
+
 			}
 			Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 			 out=f1.toJson(temp1);
@@ -540,7 +547,7 @@ public static List<Delivery> getdeliverylist()
 		rep1.setDelivery_revenue(d2);
 		rep1.setOrders_cancelled(t2);
 		rep1.setOrders_placed(t1);
-		rep1.setDelivery_revenue(d1);
+		rep1.setProducts_revenue(d1);
 		rep1.setOrders_delivered(t3);
 		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 		 out=f1.toJson(rep1);
