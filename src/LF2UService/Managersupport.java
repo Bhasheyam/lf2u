@@ -1,10 +1,10 @@
 package LF2UService;
 
 import java.io.IOException;
-import java.io.InputStream;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+
+import DataGeneration.catalogmange;
 
 public interface Managersupport {
 
@@ -14,8 +14,8 @@ public interface Managersupport {
 public String getreportt1( int s1,String st1, String st2);
 public String getreportt2( int s1, String st1, String st2);
 public String getreportt3( int s1, String st1, String st2);
-public String addcat(StringBuilder out1);
+public String addcat(catalogmange use1);
 public String getcatlist();
-public boolean update(String s, StringBuilder b) throws JsonParseException, JsonMappingException, IOException;
+public boolean update(String s, catalogmange d) throws JsonParseException, JsonMappingException, IOException;
 
 }

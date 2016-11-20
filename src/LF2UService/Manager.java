@@ -4,13 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -22,13 +18,8 @@ import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import DataGeneration.catalogmange;
 import Service.Managerscope;
 
@@ -79,7 +70,11 @@ public class Manager {
 	{
 		String out;
 		StringBuilder out1=ExtractString(incomingData);
-		out=use.addcat(out1);
+		catalogmange use1;
+		//mapping the value
+		Gson f = new Gson();
+		use1=f.fromJson(out1.toString(), catalogmange.class);
+		out=use.addcat(use1);
 		
 	return Response.status(201).entity(out).build();
 	}
@@ -93,8 +88,11 @@ public class Manager {
 		StringBuilder b;
 		b=ExtractString(incomingData);
 		boolean a;
-		
-			a = use.update(s,b);
+		catalogmange d;
+		Gson f = new Gson();
+
+			d=f.fromJson(b.toString(),catalogmange.class);
+			a = use.update(s,d);
 		
 		if(a==false)
 		{
@@ -174,14 +172,9 @@ public class Manager {
 		{
 			return Response.status(Response.Status.NOT_FOUND).entity("invalid mrid"+s1).build();
 		}
-		if(out=="[]")
-		{
-			return Response.status(Response.Status.NOT_FOUND).entity("Report  not found for MRID: " + s1).build();
-		}
-		else
-		{	
+			
 		return Response.status(200).entity(out).build();
-		}
+
 	}
 
 	

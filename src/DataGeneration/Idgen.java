@@ -38,7 +38,7 @@ public class Idgen {
 		counterp=counterp+1;
 		return counterp+"";
 	}
-	public static String getcurrentdate()
+	public  static String getcurrentdate()
 	{
 		DateFormat df = new SimpleDateFormat("yyyyMMdd");
 		Date dateobj = new Date();

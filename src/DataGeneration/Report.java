@@ -1,7 +1,5 @@
 package DataGeneration;
 
-import java.util.Arrays;
-
 public class Report {
 private int id;
 private String name;

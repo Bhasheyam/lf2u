@@ -1,7 +1,5 @@
 	package dataList;
 
-import java.util.List;
-
 import DataGeneration.corders;
 
 public class orderget {

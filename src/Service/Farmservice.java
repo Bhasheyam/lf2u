@@ -13,7 +13,7 @@ import com.google.gson.GsonBuilder;
 
 import DataGeneration.Customerdetails;
 import DataGeneration.Farmerdata;
-import DataGeneration.Idgen;
+
 import DataGeneration.OrderReport;
 import DataGeneration.Ordered_by;
 import DataGeneration.Productdetails;
@@ -23,7 +23,6 @@ import DataGeneration.orders;
 import DataGeneration.report3;
 import LF2UService.Farmersupport;
 import dataList.*;
-import DataGeneration.Farmerdata;
 
 public class Farmservice implements Farmersupport {
 	
@@ -97,7 +96,7 @@ public static List<Delivery> getdeliverylist()
 	@Override
 	public String zip(String zi) throws NullPointerException {
 		
-		String out,c,c1;
+		String out;
 		
 		
 	for(Farmerdata e:col)
@@ -158,7 +157,7 @@ public static List<Delivery> getdeliverylist()
 	@Override
 	public boolean updateproductinfo(String s, String s1, Productdetails pd) {
 		boolean a=false;
-		String ss,c,c2,c3,c4,c5,k,k1,z;
+		String ss,c,c2,c3,c4,c5,k,z;
 		double c1;
 		
 		for(Productlist prod:col2)
@@ -320,7 +319,6 @@ public static List<Delivery> getdeliverylist()
 	@Override
 	public String getreport(String s, int s1) {
 		String out, key,cid,c1,c2,c3;
-		String l1;
 		List<orders> ordl=new ArrayList<orders>();
 		List<OrderReport> temp1=new ArrayList<OrderReport>();
 		List<Customerdetails> temp2=new ArrayList<Customerdetails>();
@@ -409,7 +407,6 @@ public static List<Delivery> getdeliverylist()
 		Date enddate=new Date();
 		Date startdate=new Date();
 		DateFormat df1 = new SimpleDateFormat("yyyyMMdd");
-		String l1,l2;
 		int t1=0,t2=0,t3=0;
 		double d1=0.0d,d2=0.0d;
 		report3 rep1=new report3();

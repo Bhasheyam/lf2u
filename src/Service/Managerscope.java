@@ -1,7 +1,5 @@
 package Service;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,13 +8,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sun.org.apache.xml.internal.resolver.CatalogManager;
-
 import DataGeneration.By_farmer;
 import DataGeneration.Farmerdata;
 import DataGeneration.Manageraccount;
@@ -32,16 +25,17 @@ import dataList.managerreportlis;
 public class Managerscope implements Managersupport {
 	
 	managerreportlis m=new managerreportlis();
+	
 	public static List<catalogmange> col=new ArrayList<catalogmange>();
 	public static List<catalogmange> getlist()
 	{
 		return col;
 	}
 	//manager report list
-	public String getreplist()
+	public  String getreplist()
 	{
 		
-		List<managerreport> mh=new <managerreport>ArrayList();
+		List<managerreport> mh=new ArrayList<managerreport>();
 		
 		m.setreplist();
 		mh=m.getrepmana();
@@ -230,7 +224,7 @@ public class Managerscope implements Managersupport {
 	//manager report type 4 and 3
 	@Override
 	public String getreportt2(int s1, String s2, String s3) {
-		String out,c,c2,c3,c4,st,ed;
+		String out,c,c2,st,ed;
 		List<Farmerdata> temp=new ArrayList<Farmerdata>();
 		 List<OrderReport> temp1=new ArrayList<OrderReport>();
 		 temp=Farmservice.getfarmlist();
@@ -273,7 +267,7 @@ public class Managerscope implements Managersupport {
 						for(OrderReport r:temp1)
 						{
 							
-							c3=r.getOrder_date();
+							r.getOrder_date();
 							String c7=r.getFarm_info().getfid();
 							
 							if(c8.equals(r.getOrder_date())&&c7.equals(c))
@@ -363,7 +357,7 @@ public class Managerscope implements Managersupport {
 							for(OrderReport r:temp1)
 							{
 								
-								c3=r.getOrder_date();
+								r.getOrder_date();
 								String c7=r.getFarm_info().getfid();
 								
 								if(key.equals(r.getOrder_date())&&c7.equals(c))
@@ -470,7 +464,7 @@ public class Managerscope implements Managersupport {
 						for(OrderReport r:temp1)
 						{
 							
-							c3=r.getOrder_date();
+							r.getOrder_date();
 							String c7=r.getFarm_info().getfid();
 							
 							if(c8.equals(r.getOrder_date())&&c7.equals(c))
@@ -558,13 +552,10 @@ public class Managerscope implements Managersupport {
 	}
 //catalog add
 	@Override
-	public String addcat(StringBuilder out1) {
+	public String addcat(catalogmange use1) {
 	
 	String out;
-	catalogmange use1;
-	//mapping the value
-	Gson f = new Gson();
-	use1=f.fromJson(out1.toString(), catalogmange.class);
+	
 	//adding to a list to have concolidated one.
 	col.add(use1);
 	
@@ -588,7 +579,7 @@ public class Managerscope implements Managersupport {
 	}
 	//catalog search
 	@Override
-	public boolean update(String s, StringBuilder b)  {
+	public boolean update(String s, catalogmange d)  {
 		boolean b1=false;
 		
 		for(catalogmange h:col)
@@ -596,13 +587,10 @@ public class Managerscope implements Managersupport {
 			String check=h.getGcpid();
 			if(check.equals(s))
 			{
-				catalogmange d;
+				
 				int i=col.indexOf(h);
 				
 				
-				Gson f = new Gson();
-	
-					d=f.fromJson(b.toString(),catalogmange.class);
 				d.setgcpid(check);
 				col.set(i,d);
 				b1=true;

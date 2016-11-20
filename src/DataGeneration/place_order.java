@@ -1,7 +1,5 @@
 package DataGeneration;
 
-import java.util.List;
-
 public class place_order {
 
 	private String fid;

@@ -1,8 +1,9 @@
 package Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -11,7 +12,7 @@ import com.google.gson.GsonBuilder;
 import DataGeneration.Customerdetails;
 import DataGeneration.Farm_info;
 import DataGeneration.Farmerdata;
-import DataGeneration.Idgen;
+
 import DataGeneration.OrderReport;
 import DataGeneration.Order_detail;
 import DataGeneration.Order_details;
@@ -21,10 +22,8 @@ import DataGeneration.corders;
 import DataGeneration.place_order;
 import DataGeneration.supportdc;
 import LF2UService.Customersupport;
-import LF2UService.Deliversupport;
-import ServiceSupport.cid;
 import dataList.Delivery;
-import dataList.gcpid;
+import dataList.cid;
 import dataList.oid;
 import dataList.orderget;
 
@@ -76,8 +75,7 @@ public static void setorderlist(List<OrderReport> s)
 		col.add(h);
 		cid g=new cid();
 		
-		//to print the json
-		//sending json out
+		
 		String p=h.getcid();
 		g.set(p);
 		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
@@ -104,6 +102,12 @@ public static void setorderlist(List<OrderReport> s)
 		
 		return a;
 		
+	}
+	public   String getcurrentdate()
+	{
+		DateFormat df = new SimpleDateFormat("yyyyMMdd");
+		Date dateobj = new Date();
+		return df.format(dateobj);
 	}
 	@Override
 	public String getcustomer(String s) {
@@ -138,7 +142,7 @@ public static void setorderlist(List<OrderReport> s)
 	}
 	@Override
 	public String createorder(String s, place_order p) {
-	      String out,c,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13;
+	      String out,c,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12;
 	      String[] zip=null;
 	      boolean b1=false,b2=true;
 	      double d1,d2,d3,d4=0.0d,d5=0.0d,d6;
@@ -304,7 +308,7 @@ public static void setorderlist(List<OrderReport> s)
 @Override
 public String Showorder(String s) {
 	String out;
-	String c,c1;
+	String c;
 	
 	for(orderget p:col3)
 	{
@@ -323,13 +327,13 @@ public String Showorder(String s) {
 public String cancel(String s, String s1) {
 	String out;
 	String g,ck,ck1,ck2,c1;
-	Idgen i=new Idgen();
+	
 	for(corders e1:col2)
 	{
 		g=e1.getOid();
 		if(g.equals(s1))
 		{
-			ck=i.getcurrentdate();
+			ck=getcurrentdate();
 			ck1=e1.getOrder_date();
 			ck2=e1.getStatus();
 			if(ck2.equals("open"))
@@ -370,8 +374,7 @@ public String cancel(String s, String s1) {
 }
 @Override
 public String getorderdetails(String s, String s1) {
-	String out,c,c1,c2;
-	boolean a=false;
+	String out,c;
 	OrderReport use=new OrderReport();
 	
 //	for(orderget k:col3)
