@@ -32,7 +32,7 @@ import com.google.gson.GsonBuilder;
 import DataGeneration.catalogmange;
 import Service.Managerscope;
 
-@Path("/Manager")
+@Path("/manager")
 
 public class Manager {
 	
@@ -51,22 +51,6 @@ public class Manager {
 		}
 		return jsonInString;
 	}
-	
-	public JsonNode ExtractJSONNODE(String jsonInString)
-	{
-		JsonNode jNode = null;
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-		   jNode = mapper.readTree(jsonInString.toString());
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	   return jNode;
-	}
-	
-	
 	
 	
 	@Path("/catalog")
@@ -166,31 +150,38 @@ public class Manager {
 		return Response.status(200).entity(out).build();
 		
 	}
-	@Path("/{fid}/reports/{mrid}")
+	@Path("/reports/{mrid}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getreportlistda(@PathParam("fid")String s,@PathParam("mrid")String s1,@QueryParam("start_date") String st1,@QueryParam("end_date") String st2)
+	public Response getreportlistda(@PathParam("mrid")int s1,@QueryParam("start_date") String st1,@QueryParam("end_date") String st2)
 	
 	{
 		String out;
 		
-		if(s1.equals("1") || s1.equals("2"))
+		if(s1==1 || s1==2)
 		{
-			out= use.getreportt1(s,s1);
+			out= use.getreportt1(s1,st1,st2);
 		}
-		else if(s1.equals("3") || s1.equals("4"))
+		else if(s1==3|| s1==4)
 		{
-			out=use.getreportt2(s,s1,st1,st2);
+			out=use.getreportt2(s1,st1,st2);
 		}
-		else if(s1.equals("5"))
+		else if(s1==5)
 		{
-			out=use.getreportt3(s,s1,st1,st2);
+			out=use.getreportt3(s1,st1,st2);
 		}
 		else
 		{
+			return Response.status(Response.Status.NOT_FOUND).entity("invalid mrid"+s1).build();
+		}
+		if(out=="[]")
+		{
 			return Response.status(Response.Status.NOT_FOUND).entity("Report  not found for MRID: " + s1).build();
 		}
+		else
+		{	
 		return Response.status(200).entity(out).build();
+		}
 	}
 
 	

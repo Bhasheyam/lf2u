@@ -56,16 +56,6 @@ public class Idgen {
 	    dateobj=cal.getTime();
 		return df.format(dateobj);
 	}
-	public  String getyest()
-	{
-		
-		DateFormat df = new SimpleDateFormat("yyyyMMdd");
-		Date dateobj = new Date();
-		Calendar cal = Calendar.getInstance();
-	    cal.setTime(dateobj);
-	    cal.add(Calendar.DATE, -1); 
-	    dateobj=cal.getTime();
-		return df.format(dateobj);
-	}
+	
 	
 }

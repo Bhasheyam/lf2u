@@ -46,12 +46,9 @@ public static List<Delivery> getdeliverylist()
 }
 
 	@Override
-	public String create(StringBuilder b) {
+	public String create(Farmerdata f) {
 		String out;
 		String use1;
-		Farmerdata f;
-		Gson use=new Gson();
-		f=use.fromJson(b.toString(),Farmerdata.class );
 		col.add(f);
 		fid op=new fid();
 		use1=f.getfid();
@@ -64,7 +61,7 @@ public static List<Delivery> getdeliverylist()
 		
 	}
 	@Override
-	public boolean update(String fid, StringBuilder b) {
+	public boolean update(String fid, Farmerdata b) {
 		boolean a=false;
 		String s;
 		for(Farmerdata g:col)
@@ -72,19 +69,12 @@ public static List<Delivery> getdeliverylist()
 			s=g.getfid();
 			if(s.equals(fid))
 			{
-				Farmerdata f1;
 				int i=col.indexOf(g);
-				
-				
-				Gson f = new Gson();
-	
-					f1=f.fromJson(b.toString(),Farmerdata.class);
-				f1.setfid(s);
-				col.set(i,f1);
+				b.setfid(s);
+				col.set(i,b);
 				a=true;
 			}
 		}
-		
 		return a;
 		
 	}
@@ -148,11 +138,8 @@ public static List<Delivery> getdeliverylist()
 		return out;
 	}
 	@Override
-	public String createprod(String s, StringBuilder b) {
-		String out,c;
-		Productdetails prod;
-		Gson f1=new Gson();
-		prod=f1.fromJson(b.toString(),Productdetails.class );
+	public String createprod(String s, Productdetails  prod) {
+		String out,c;	
 		c=prod.getfspid();
 		col1.add(prod);
 		Productlist prodl=new Productlist();
@@ -169,18 +156,17 @@ public static List<Delivery> getdeliverylist()
 		
 	}
 	@Override
-	public boolean updateproductinfo(String s, String s1, StringBuilder b) {
+	public boolean updateproductinfo(String s, String s1, Productdetails pd) {
 		boolean a=false;
 		String ss,c,c2,c3,c4,c5,k,k1,z;
 		double c1;
-		Productdetails pd;
+		
 		for(Productlist prod:col2)
 		{
 			z=prod.getid();
 			if(z.equals(s))
 			{
-		Gson g=new Gson();
-		pd=g.fromJson(b.toString(),Productdetails.class);
+		
 		for(Productdetails g1:col1)
 		{
 			ss=g1.getfspid();
@@ -268,19 +254,17 @@ public static List<Delivery> getdeliverylist()
 		
 	}
 	@Override
-	public boolean deliverycharge(String s,StringBuilder b) {
+	public boolean deliverycharge(String s,Delivery d1) {
 		boolean a=false;
 		String l;
 		
-		Delivery d1=new Delivery();
+		
 		
 		for(Farmerdata r:col)
 		{
 			l=r.getfid();
 			if(s.equals(l))
 	        {
-				Gson g=new Gson();
-				d1=g.fromJson(b.toString(),Delivery.class);
 				r.setdeliverycharges(d1.getcharges());
 				d1.setfid(s);
 				col3.add(d1);
@@ -311,7 +295,7 @@ public static List<Delivery> getdeliverylist()
 	}
 	public  String getcurrentdate()
 	{
-		DateFormat df = new SimpleDateFormat("yyyyMMdd ");
+		DateFormat df = new SimpleDateFormat("yyyyMMdd");
 		Date dateobj = new Date();
 		return df.format(dateobj);
 	}
@@ -336,30 +320,30 @@ public static List<Delivery> getdeliverylist()
 	@Override
 	public String getreport(String s, int s1) {
 		String out, key,cid,c1,c2,c3;
-		String l1,l2;
-		List<Report1> temp=new ArrayList<Report1>();
+		String l1;
 		List<orders> ordl=new ArrayList<orders>();
-		
-		
-		
 		List<OrderReport> temp1=new ArrayList<OrderReport>();
 		List<Customerdetails> temp2=new ArrayList<Customerdetails>();
 		temp1=Customerser.getorderlist();
 		temp2=Customerser.getcustomer();
+		Report1 rep1=new Report1();
 		
 		if(s1==701)
 		{
+			rep1.setFrid(s1);
+			rep1.setName("Orders to deliver today");
 			key=getcurrentdate();
-			l1="Orders to deliver today";
+			
 		}
 		else
 		{
+			rep1.setFrid(s1);
+			rep1.setName("Orders to deliver tomorrow");
 			key=getnextday();
-			l1="Orders to deliver tomorrow";
+			
 		}
-		Report1 rep1=new Report1();
-		rep1.setFrid(s1);
-		rep1.setName(l1);
+		
+		
 		for(OrderReport o:temp1)
 		{
 			orders ord=new orders();
@@ -368,15 +352,17 @@ public static List<Delivery> getdeliverylist()
 			c1=o.getPlanned_delivery_date();
 			c2=o.getFarm_info().getfid();
 			if(c2.equals(s)&& c1.equals(key))
-			{
+			{	
+				
+				
+				ord.setDelivery_charge(o.getDelivery_charge());
+				ord.setOrder_total(o.getOrder_total());
+				ord.setProducts_total(o.getProducts_total());
 				
 				ord.setOrder_detail(o.getOrder_detail());
 				ord.setoid(o.getOid());
 				ord.setActual_delivery_date(o.getActual_delivery_date());
-				ord.setDelivery_charge(o.getDelivery_charge());
 				ord.setOrder_date(o.getOrder_date());
-				ord.setOrder_total(o.getOrder_total());
-				ord.setProducts_total(o.getProducts_total());
 				ord.setPlanned_delivery_date(o.getPlanned_delivery_date());
 				ord.setNote(o.getDelivery_note());
 				ord.setStatus(o.getStatus());
@@ -389,17 +375,21 @@ public static List<Delivery> getdeliverylist()
 						ord1.setEmail(c.getEmail());
 						ord1.setPhone(c.getPhone());
 						ord.setDelivery_address(c.getStreet()+" "+c.getZip());	
+						ord.setOrdered_by(ord1);
 				}
 				}
-				ord.setOrdered_by(ord1);
-
 			}
+			if(ord.getOrder_total()==0.0d)
+			{
+				continue;
+			}else{
 			ordl.add(ord);
-		}
+			}
+			}
 		rep1.setOrders(ordl);	
-		temp.add(rep1);
+		
 		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
-		 out=f1.toJson(temp);
+		 out=f1.toJson(rep1);
 		return out;
 	}
 	public   String getnextday()
@@ -464,7 +454,7 @@ public static List<Delivery> getdeliverylist()
 							{
 								t2=t2+1;
 							}
-					if(st.equals("delivered"))
+					if(st.equals("Delivered"))
 					{
 						
 						t3=t3+1;
@@ -496,7 +486,7 @@ public static List<Delivery> getdeliverylist()
 				for(OrderReport f:temp)
 				{
 					if(g.equals(f.getOrder_date())&&s.equals(f.getFarm_info().getfid())){
-						if(f.getStatus().equals("delivered")){
+						if(f.getStatus().equals("Delivered")){
 							temp1.add(f);
 						}
 					}
@@ -535,7 +525,7 @@ public static List<Delivery> getdeliverylist()
 							{
 								t2=t2+1;
 							}
-					if(st.equals("delivered"))
+					if(st.equals("Delivered"))
 					{
 						t3=t3+1;
 						d1=d1+f.getProducts_total();
@@ -560,7 +550,7 @@ public static List<Delivery> getdeliverylist()
 				for(OrderReport f:temp)
 				{
 					if(s.equals(f.getFarm_info().getfid())){
-						if(f.getStatus().equals("delivered")){
+						if(f.getStatus().equals("Delivered")){
 							temp1.add(f);
 						}
 					}

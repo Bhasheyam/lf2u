@@ -56,7 +56,7 @@ public class deliverystatus implements Deliversupport {
 				s4=d.getOid();
 				if(s4.equals(id))
 				{
-					d.setStatus("delivered");
+					d.setStatus("Delivered");
 					d.setActual_delivery_date(date);
 				}
 			}

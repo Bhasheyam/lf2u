@@ -1,11 +1,9 @@
 package LF2UService;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-
+import java.lang.reflect.Field;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -20,14 +18,12 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import DataGeneration.Farmerdata;
+import DataGeneration.Productdetails;
 import Service.Farmservice;
+import dataList.Delivery;
 
 @Path("/Farmer")
 public class Farmer {
@@ -47,25 +43,38 @@ public class Farmer {
 		}
 		return jsonInString;
 	}
-	
+	public boolean checkNull(Object b) throws IllegalAccessException {
+		
+		boolean b1=true;
+		Field[] f1=b.getClass().getDeclaredFields();
+	    for (Field f : f1)
+	    {
+	    	f.setAccessible(true);
+	        if (f.get(this) != null)
+	            b1=false;
+	    }
+	    return b1;            
+	}
 	
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createfarm(InputStream incomingData)
+	public Response createfarm(InputStream incomingData) throws IllegalAccessException
 	{
+		Farmerdata f;
 		String out;
 		StringBuilder b=ExtractString(incomingData);
-		if(b==null)
+		Gson g=new Gson();
+		f=g.fromJson(b.toString(),Farmerdata.class );
+		out=use.create(f);
+		if(out=="[]")
 		{
-			return Response.status(Response.Status.NOT_FOUND).entity("no Json input").build();
-		}
-		out=use.create(b);
-		
-		
+			return Response.status(Response.Status.NOT_FOUND).entity("no Json ").build();
+		}else
+		{
 		return Response.status(201).entity(out).build();
-		
+		}
 	}
 	
 	@Path("/{fid}")
@@ -73,13 +82,12 @@ public class Farmer {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updatefarmaccount(@PathParam("fid")String fid ,InputStream incomingData, @Context UriInfo i)
 	{boolean a;
+	Farmerdata f;
 	StringBuilder b;
 	b=ExtractString(incomingData);
-	if(b==null)
-	{
-		return Response.status(Response.Status.NOT_FOUND).entity("no Json input").build();
-	}
-	a=use.update(fid,b);
+	Gson g=new Gson();
+	f=g.fromJson(b.toString(), Farmerdata.class);
+	a=use.update(fid,f);
 		if(a==false)
 		{
 			return Response.status(Response.Status.NOT_FOUND).entity("Farm not found for ID: " + fid).build();
@@ -153,12 +161,14 @@ public class Farmer {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addproduct(@PathParam("fid")String s,InputStream incomingData)
-	{
+	{Productdetails prod;
 		
 		String out;
 		StringBuilder b;
 		b=ExtractString(incomingData);
-		out=use.createprod(s,b);
+		Gson g=new Gson();
+		prod=g.fromJson(b.toString(), Productdetails.class);
+		out=use.createprod(s,prod);
 		return Response.status(200).entity(out).build();
 	}
 	
@@ -169,8 +179,11 @@ public class Farmer {
 	{
 		boolean a;
 		 StringBuilder b;
+		 Productdetails pd;
 		 b=ExtractString(incomingData);
-		a=use.updateproductinfo(s,s1,b);
+		 Gson g=new Gson();
+			pd=g.fromJson(b.toString(), Productdetails.class);
+		a=use.updateproductinfo(s,s1,pd);
 		if(a==false)
 		{
 			return Response.status(Response.Status.NOT_FOUND).entity("Product  not found for ID: " + s1).build();
@@ -226,8 +239,7 @@ public class Farmer {
 		if(s1==(703)||s1==704)
 		{
 			if(st1==null||st2==null)
-			{
-				
+			{	
 				out=use.getreport1(s,s1);
 				if(out.equals("[]"))
 				{
@@ -256,13 +268,11 @@ public Response setdeleiverycharges(@PathParam("fid")String s,InputStream incomi
 	
 	boolean a;
 	StringBuilder b;
-	
+	Delivery d1;
 	b=ExtractString(incomingData);
-	if(b==null)
-	{
-		return Response.status(Response.Status.NOT_FOUND).entity("no Json input").build();
-	}
-    a=use.deliverycharge(s,b);
+	 Gson g=new Gson();
+		d1=g.fromJson(b.toString(), Delivery.class);
+    a=use.deliverycharge(s,d1);
 	if(a==false)
 	{
 		return Response.status(Response.Status.NOT_FOUND).entity("Farm not found for ID: " + s).build();

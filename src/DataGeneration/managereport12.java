@@ -1,44 +1,41 @@
 package DataGeneration;
 
 public class managereport12 {
-	private String mrid;
-
-    private String orders_cancelled;
-
-    private String orders_open;
-
+	private int mrid;
     private String name;
+    private int orders_placed;
+    private int orders_cancelled;
+    private int  orders_open;
+    private int orders_delivered;
 
-    private String orders_delivered;
+  
 
-    private String orders_placed;
-
-    public String getMrid ()
+    public int getMrid ()
     {
         return mrid;
     }
 
-    public void setMrid (String mrid)
+    public void setMrid (int s1)
     {
-        this.mrid = mrid;
+        this.mrid = s1;
     }
 
-    public String getOrders_cancelled ()
+    public int getOrders_cancelled ()
     {
         return orders_cancelled;
     }
 
-    public void setOrders_cancelled (String orders_cancelled)
+    public void setOrders_cancelled (int orders_cancelled)
     {
         this.orders_cancelled = orders_cancelled;
     }
 
-    public String getOrders_open ()
+    public int getOrders_open ()
     {
         return orders_open;
     }
 
-    public void setOrders_open (String orders_open)
+    public void setOrders_open (int orders_open)
     {
         this.orders_open = orders_open;
     }
@@ -53,22 +50,22 @@ public class managereport12 {
         this.name = name;
     }
 
-    public String getOrders_delivered ()
+    public int getOrders_delivered ()
     {
         return orders_delivered;
     }
 
-    public void setOrders_delivered (String orders_delivered)
+    public void setOrders_delivered (int orders_delivered)
     {
         this.orders_delivered = orders_delivered;
     }
 
-    public String getOrders_placed ()
+    public int getOrders_placed ()
     {
         return orders_placed;
     }
 
-    public void setOrders_placed (String orders_placed)
+    public void setOrders_placed (int orders_placed)
     {
         this.orders_placed = orders_placed;
     }

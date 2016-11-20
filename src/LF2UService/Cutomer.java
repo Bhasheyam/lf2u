@@ -1,6 +1,5 @@
 package LF2UService;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -12,19 +11,16 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
+import DataGeneration.Customerdetails;
+import DataGeneration.place_order;
 import Service.Customerser;
 
 
@@ -54,13 +50,12 @@ public class Cutomer {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createaccount(InputStream incomingData)
 	{
+		Customerdetails h;
 		String out;
 		StringBuilder b=ExtractString(incomingData);
-		if(b==null)
-		{
-			return Response.status(Response.Status.NOT_FOUND).entity("no Json input").build();
-		}
-		out=use.createaccount(b);
+		Gson g=new Gson();
+		h=g.fromJson(b.toString(), Customerdetails.class);
+		out=use.createaccount(h);
 		
 		
 		return Response.status(201).entity(out).build();
@@ -74,12 +69,12 @@ public class Cutomer {
 	{
 		
 		boolean a;
+		Customerdetails d;
 		StringBuilder b=ExtractString(incomingData);
-		if(b==null)
-		{
-			return Response.status(Response.Status.NOT_FOUND).entity("no Json input").build();
-		}
-		a=use.update(s,b);
+		Gson f = new Gson();
+		
+		d=f.fromJson(b.toString(),Customerdetails.class);
+		a=use.update(s,d);
 		if(a==false)
 		{
 			 return Response.status(Response.Status.NOT_FOUND).entity("product not found for ID: " + s).build();
@@ -119,19 +114,22 @@ public class Cutomer {
 		String out;
 		StringBuilder b;
 		b=ExtractString(incomingData);
-		if(b==null)
-		{
-			return Response.status(Response.Status.NOT_FOUND).entity("no Json input").build();
-		}
-		out=use.createorder(s,b);
+		 place_order p;
+		Gson f=new Gson();
+	      p=f.fromJson(b.toString(), place_order.class);
+		out=use.createorder(s,p);
 		
 		if(out.equals("[]"))
 		{
 			return Response.status(Response.Status.NOT_FOUND).entity("Invalid entry order cannot be processed, Either product or customer id is invalid ").build();
 		}
+		else if(out=="no farm on this zip")
+		{
+			return Response.status(422).entity("invalid zip entry").build();
+		}
 		else
 		{
-			return Response.status(200).entity(out).build();
+			return Response.status(200).entity(out).build();	
 		}
 	}
 	

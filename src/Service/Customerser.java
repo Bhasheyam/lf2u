@@ -36,6 +36,7 @@ public static List<orderget> col3=new ArrayList<orderget>();
 public static List<OrderReport> col5=new ArrayList<OrderReport>();
  List<corders> col4=new ArrayList<corders>();
 
+
  public static List<Customerdetails> getcustomer()
  {
  	return col;
@@ -66,12 +67,10 @@ public static void setorderlist(List<OrderReport> s)
 }
 
 	@Override
-	public String createaccount(StringBuilder b) {
+	public String createaccount(Customerdetails h) {
 		String out;
 		 
-		//mapping the value
-		Gson f = new Gson();
-		Customerdetails h=f.fromJson(b.toString(), Customerdetails.class);
+		
 		//adding to a list to have concolidated one.
 		
 		col.add(h);
@@ -87,7 +86,7 @@ public static void setorderlist(List<OrderReport> s)
 		 
 	}
 	@Override
-	public boolean update(String s, StringBuilder b) {
+	public boolean update(String s, Customerdetails d) {
 		
 		boolean a=false;
 		for(Customerdetails h:col)
@@ -95,13 +94,8 @@ public static void setorderlist(List<OrderReport> s)
 			String check=h.getcid();
 			if(check.equals(s))
 			{
-				Customerdetails d;
-				int i=col.indexOf(h);
 				
-				
-				Gson f = new Gson();
-	
-					d=f.fromJson(b.toString(),Customerdetails.class);
+				int i=col.indexOf(h);				
 				d.setcid(check);
 				col.set(i,d);
 				a=true;
@@ -143,11 +137,11 @@ public static void setorderlist(List<OrderReport> s)
 	return a;	
 	}
 	@Override
-	public String createorder(String s, StringBuilder b) {
+	public String createorder(String s, place_order p) {
 	      String out,c,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13;
 	      String[] zip=null;
 	      boolean b1=false,b2=true;
-	      place_order p;
+	      double d1,d2,d3,d4=0.0d,d5=0.0d,d6;
 	      Farm_info far=new Farm_info();
 	      List<Farmerdata> temp=new ArrayList<Farmerdata>();
 	      List<Productdetails> temp2=new ArrayList<Productdetails>();
@@ -161,14 +155,13 @@ public static void setorderlist(List<OrderReport> s)
 	      }
 	      
 	      Order_detail[] order;
-	      double d1,d2,d3,d4=0.0d,d5=0.0d,d6;
+	     
 	      OrderReport rep=new OrderReport();
 	      
 	      
 	      
-	      //mapping and keeping a reference.
-	      Gson f=new Gson();
-	      p=f.fromJson(b.toString(), place_order.class);
+	      
+	      
 	      col1.add(p);
 	  	String t=p.getFid();
       	String t1=p.getoid();
