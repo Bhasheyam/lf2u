@@ -107,7 +107,8 @@
         </copy>
     </target>
     <target name="clean">
-        <delete dir="build/classes"/>
+    	<delete dir="build/classes"/>
+    		<delete dir="junit"/>
     </target>
     <target depends="clean" name="cleanall"/>
     <target depends="build-subprojects,build-project" name="build"/>
@@ -127,7 +128,7 @@
 		        <junit fork="yes" printsummary="withOutAndErr">
 		            <formatter type="xml"/>
 		            <test name="Testing.Customer" todir="${junit.output.dir}"/>
-		            <classpath refid=".classpath"/>
+		            <classpath refid="OODP-Project.classpath"/>
 		        </junit>
 	    	</jacoco:coverage>
 	    </target>
@@ -137,7 +138,7 @@
 		        <junit fork="yes" printsummary="withOutAndErr">
 		            <formatter type="xml"/>
 		            <test name="Testing.Farmertest" todir="${junit.output.dir}"/>
-		            <classpath refid=".classpath"/>
+		            <classpath refid="OODP-Project.classpath"/>
 		        </junit>
 	    	</jacoco:coverage>
 	    </target>
@@ -147,7 +148,7 @@
 		        <junit fork="yes" printsummary="withOutAndErr">
 		            <formatter type="xml"/>
 		            <test name="Testing.managertest" todir="${junit.output.dir}"/>
-		            <classpath refid=".classpath"/>
+		            <classpath refid="OODP-Project.classpath"/>
 		        </junit>
 	    	</jacoco:coverage>
 		</target>
@@ -157,7 +158,7 @@
 			        <junit fork="yes" printsummary="withOutAndErr">
 			            <formatter type="xml"/>
 			            <test name="Testing.delivery" todir="${junit.output.dir}"/>
-			            <classpath refid=".classpath"/>
+			            <classpath refid="OODP-Project.classpath"/>
 			        </junit>
 		    	</jacoco:coverage>
 			</target>
@@ -167,10 +168,20 @@
 			        <junit fork="yes" printsummary="withOutAndErr">
 			            <formatter type="xml"/>
 			            <test name="Testing.search" todir="${junit.output.dir}"/>
-			            <classpath refid=".classpath"/>
+			            <classpath refid="OODP-Project.classpath"/>
 			        </junit>
 		    	</jacoco:coverage>
 			</target>
+	<target name="testrunner">
+			        <mkdir dir="${junit.output.dir}"/>
+			    	<jacoco:coverage  destfile="junit/jcoverage/jacoco.exec">
+				        <junit fork="yes" printsummary="withOutAndErr">
+				            <formatter type="xml"/>
+				            <test name="Testing.search" todir="${junit.output.dir}"/>
+				            <classpath refid="OODP-Project.classpath"/>
+				        </junit>
+			    	</jacoco:coverage>
+				</target>
 	
 	
 	    <target name="junitreport">
