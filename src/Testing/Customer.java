@@ -104,21 +104,17 @@ public class Customer {
 		c.setEmail("sriram@gmail.com");
 		c.setZip("60010");
 		s.createaccount(c);
-		String g=s.getcustomer("51");
+		String g=s.getcustomer("1");
         boolean a1= Pattern.compile(Pattern.quote("sriram"), Pattern.CASE_INSENSITIVE).matcher(g).find();
         assertEquals(a1,true);
 		
 	}
-
 	@Test
-	public void testCreateorder() {
+	public void testgetorder() {
 		
 		Farmerdata fr=new Farmerdata();
 		Farm_info fi=new Farm_info();
 		Personal_info pl=new Personal_info();
-		
-		
-		
 		catalogmange ca=new catalogmange();
 		ca.setName("potato");
 		m.addcat(ca);
@@ -157,13 +153,65 @@ public class Customer {
 		o.setFspid("1");
 		oa[0]=o;
 		p.setOrder_detail(oa);
-		s.createorder("51", p);
+		s.createorder("1", p);
+		String g=s.Showorder("1");
+		
+		
+		boolean a1= Pattern.compile(Pattern.quote("open"), Pattern.CASE_INSENSITIVE).matcher(g).find();
+        assertEquals(a1,true);
+	}
+
+	@Test
+	public void testCreateorder() {
+		
+		Farmerdata fr=new Farmerdata();
+		Farm_info fi=new Farm_info();
+		Personal_info pl=new Personal_info();
+		catalogmange ca=new catalogmange();
+		ca.setName("potato");
+		m.addcat(ca);
+		String[] fp={"60010", "60011"};
+		fi.setName("boss");
+		fi.setPhone("8089842432");
+		fi.setWeb("bhasheyam@gmail.com");
+		fi.setAddress("napervile");
+		pl.setName("bhasheyam");
+		pl.setPhone("873982738");
+		pl.setEmail("bhasheyam@gmai.com");
+		fr.setDelivers_to(fp);
+		fr.setFarm_info(fi);
+		fr.setPersonal_info(pl);
+		f.create(fr);
+		Productdetails pr= new Productdetails();
+		pr.setStart_date("20161110");
+		pr.setEnd_date("");
+		pr.setNote("sucess");
+		pr.setPrice(0.10d);
+		pr.setGcpid("1");
+		pr.setImage("");
+		pr.setProduct_unit("lb");
+		c.setName("sriram");
+		c.setPhone("9003203629");
+		c.setStreet("woodie drive");
+		c.setEmail("sriram@gmail.com");
+		c.setZip("60010");
+		s.createaccount(c);
+		place_order p=new place_order();
+		Order_detail o=new Order_detail();
+		Order_detail[] oa=new Order_detail[1];
+		p.setDelivery_note("successu");
+		p.setFid("1");
+		o.setamount(2);
+		o.setFspid("1");
+		oa[0]=o;
+		p.setOrder_detail(oa);
+		s.createorder("1", p);
 		
 		int i=s.getplaceorder().size();
 		assertEquals(1,i);
 	}
 
-	@Test
+	@Test 
 	public void testShoworder() {
 		Farmerdata fr=new Farmerdata();
 		Farm_info fi=new Farm_info();
@@ -207,8 +255,8 @@ public class Customer {
 		o.setFspid("1");
 		oa[0]=o;
 		p.setOrder_detail(oa);
-		s.createorder("51", p);
-		String g=s.Showorder("51");
+		s.createorder("1", p);
+		String g=s.Showorder("1");
 		 boolean a1= Pattern.compile(Pattern.quote("1"), Pattern.CASE_INSENSITIVE).matcher(g).find();
 	        assertEquals(a1,true);
 	}
@@ -259,9 +307,9 @@ public class Customer {
 		o.setFspid("1");
 		oa[0]=o;
 		p.setOrder_detail(oa);
-		s.createorder("51", p);
-		s.cancel("51", "1");
-		String g=s.getorderdetails("51", "1");
+		s.createorder("1", p);
+		s.cancel("1", "1");
+		String g=s.getorderdetails("1", "1");
 		 boolean a1= Pattern.compile(Pattern.quote("cancelled"), Pattern.CASE_INSENSITIVE).matcher(g).find();
 	        assertEquals(a1,true);
 	}

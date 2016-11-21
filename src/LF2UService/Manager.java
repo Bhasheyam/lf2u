@@ -160,13 +160,9 @@ public class Manager {
 		{
 			out= use.getreportt1(s1,st1,st2);
 		}
-		else if(s1==3|| s1==4)
+		else if(s1==3|| s1==4||s1==5)
 		{
 			out=use.getreportt2(s1,st1,st2);
-		}
-		else if(s1==5)
-		{
-			out=use.getreportt3(s1,st1,st2);
 		}
 		else
 		{
@@ -174,7 +170,6 @@ public class Manager {
 		}
 			
 		return Response.status(200).entity(out).build();
-
 	}
 
 	

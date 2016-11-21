@@ -13,7 +13,6 @@ public interface Managersupport {
    public String getreplist();
 public String getreportt1( int s1,String st1, String st2);
 public String getreportt2( int s1, String st1, String st2);
-public String getreportt3( int s1, String st1, String st2);
 public String addcat(catalogmange use1);
 public String getcatlist();
 public boolean update(String s, catalogmange d) throws JsonParseException, JsonMappingException, IOException;

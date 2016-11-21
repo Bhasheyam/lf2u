@@ -8,7 +8,7 @@ public class managerreportlis {
 	
 	private int[] mrid={1,2,3,4,5};
     private String[] name={ "Orders placed today","Orders placed yesterday","Revenue for previous month","Revenue yesterday","Revenue yesterday by zip code"};
-    private int[] mid={0,1,2};
+    private int[] mid={1,2,3};
     private String[] name1={"Manager1","Manager2","Manager3"};
 	private String[] create_date={"20160317","20161015","20160515"};
 	private String[] phone={"9853259834","8327589237","3908590352"};
@@ -25,34 +25,10 @@ public class managerreportlis {
     Manageraccount ma2=new Manageraccount();
     List<managerreport> m=new ArrayList<managerreport>();
     List<Manageraccount> m1=new ArrayList<Manageraccount>();
-    List<managereport12> m2=new ArrayList<managereport12>();
-    List<managerreport45> m3=new ArrayList<managerreport45>();
-    
-    
-    public void addlist(managereport12 a)
-    {
-    	m2.add(a);
-    }
-    public void addlist1(managerreport45 a1)
-    {
-    	m3.add(a1);
-    }
-    public List<managereport12> getrep1()
-    {
-    	return this.m2;
-    }
-    public List<managerreport45> getrep2()
-    {
-    	return this.m3;
-    }
-    
    
     
     
-    public managerreportlis()
-    {
-    	
-    }
+   
     public void setreplist()
     {
     	

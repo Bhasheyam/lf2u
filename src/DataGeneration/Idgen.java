@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Idgen {
 	static int counter =0;
-	static int counterc=50;
+	static int counterc=0;
 	static int countero=0;
 	static int counterp=0;
 	static int countercp=0;
@@ -58,7 +58,7 @@ public class Idgen {
 	}
 	public void reset() {
 		counter =0;
-		counterc=50;
+		counterc=0;
 		 countero=0;
 	 counterp=0;
 	countercp=0;

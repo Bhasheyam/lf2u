@@ -342,7 +342,7 @@ public class Managerscope implements Managersupport {
 				return out;
 				 
 			 }
-			 else
+			 else if(s1==4||s1==5)
 			 {
 				 String key=getyest();
 					
@@ -539,17 +539,9 @@ public class Managerscope implements Managersupport {
 				return out;
 			 
 		 }
+		 return "[]";
 	}
-	//manager report type 3
-	@Override
-	public String getreportt3( int s1, String s2, String s3) {
-		String out;
-		 List<managerreport45> m3=new ArrayList<managerreport45>();
-		 m3=m.getrep2();
-			Gson f = new GsonBuilder().setPrettyPrinting().create();
-			 out=f.toJson(m3);
-			 return out;		 
-	}
+	
 //catalog add
 	@Override
 	public String addcat(catalogmange use1) {
