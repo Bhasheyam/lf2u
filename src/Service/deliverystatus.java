@@ -31,6 +31,9 @@ public class deliverystatus implements Deliversupport {
 		temp3=Customerser.getorderlist();
 		String s1,s2,s3,s4;
 		//setting orderc status
+		try{
+			
+		
 		for(corders s:temp1)
 		{ s1=s.getOid();
 		if(s1.equals(id))
@@ -71,6 +74,11 @@ public class deliverystatus implements Deliversupport {
 		Customerser.setorderget(temp2);
 		Customerser.setorderlist(temp3);
 		return a;
+	}
+		catch(Exception e)
+		{
+			return "[]";
+		}
 	}
 	
 

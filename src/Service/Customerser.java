@@ -84,6 +84,7 @@ public static void setorderlist(List<OrderReport> s)
 	public boolean update(String s, Customerdetails d) {
 		
 		boolean a=false;
+		try{
 		for(Customerdetails h:col)
 		{ 
 			String check=h.getcid();
@@ -97,7 +98,11 @@ public static void setorderlist(List<OrderReport> s)
 		}
 		
 		return a;
-		
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
 	}
 	public   String getcurrentdate()
 	{
@@ -169,6 +174,7 @@ public static void setorderlist(List<OrderReport> s)
 	    //checking the zip code
       	temp=Farmservice.getfarmlist();
 	      c9=p.getFid();
+	      try {
       	  for(Farmerdata d:temp)
       	  {
       		  c10=d.getfid();
@@ -285,8 +291,11 @@ public static void setorderlist(List<OrderReport> s)
 	      	 d6=d4+d5;
 	      	 rep.setOrder_total(d6);
 			 
-		
-		
+	      }
+	      catch(Exception e)
+	      {
+	    	  return "[]";
+	      }
 		//sending json class
 		      	oid o1=new oid();
 		      	o1.set(t1);
@@ -307,8 +316,10 @@ public String Showorder(String s) {
 	String out;
 	String c;
 	
-	for(orderget p:col3)
-	{
+	try{
+		for(orderget p:col3){
+	
+	
 		c=p.getcid();
 		if(c.equals(s))
 		{
@@ -318,12 +329,19 @@ public String Showorder(String s) {
 	}
 	Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 	 out=f1.toJson(col4);
+}
+		 catch(Exception e)
+		 {
+			 return "[]";
+	 }
 	 return out;
 }
 @Override
 public String cancel(String s, String s1) {
 	String out;
 	String g,ck,ck1,ck2,c1;
+	try{
+		
 	
 	for(corders e1:col2)
 	{
@@ -364,11 +382,16 @@ public String cancel(String s, String s1) {
 			}
 		}
 	}
+	}
+        catch(Exception e)
+	{
+	return"[]";
+	}
+
+       return"[]";
+}	 
 	
-	return "[]";
-	 
-	
-}
+
 @Override
 public String getorderdetails(String s, String s1) {
 	String out,c,c1;
@@ -398,7 +421,7 @@ public String getorderdetails(String s, String s1) {
 			use=o;
 		}
 	}
-	
+	 
 	Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 	 out=f1.toJson(use);
 	 return out;

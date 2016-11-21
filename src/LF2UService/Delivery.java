@@ -32,12 +32,17 @@ boolean a;
 		{
 			return Response.status(Response.Status.NOT_FOUND).entity("Order is already cancelled ID: " + s).build();
 		}
-		else
+		else if(a=="[]")
 		{
+			return Response.status(Response.Status.NOT_FOUND).entity("invalid oder details").build();
+		}
+		else{
+
 		UriBuilder builder = i.getAbsolutePathBuilder();
 	       builder.path(s);
 		return Response.created(builder.build()).build();
 		}
-		
 		}
+		
+		
 }

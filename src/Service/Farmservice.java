@@ -67,6 +67,7 @@ public static List<Productlist> getproductlist2()
 	public boolean update(String fid, Farmerdata b) {
 		boolean a=false;
 		String s;
+		try{
 		for(Farmerdata g:col)
 		{
 			s=g.getfid();
@@ -78,6 +79,12 @@ public static List<Productlist> getproductlist2()
 				a=true;
 			}
 		}
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+		
 		return a;
 		
 	}
@@ -103,23 +110,32 @@ public static List<Productlist> getproductlist2()
 		String out;
 		
 		
-	for(Farmerdata e:col)
+	for(Farmerdata e1:col)
 	{
 		String[] z=new String[100];
-		z=e.getDelivers_to();
+		z=e1.getDelivers_to();
+		try{
+			
+		
 		for(String d:z)
 			{
 				if(zi.equals(d))
 				{
 					zipfarm f=new zipfarm();
-					f.setfid(e.getfid());
-					f.setname(e.getFarm_info().getName());
+					f.setfid(e1.getfid());
+					f.setname(e1.getFarm_info().getName());
 					temp2.add(f);
 					
 				}
 			}	
-		}
 		
+	}
+	catch(Exception e)
+	{
+		return "[]";
+	}
+	}
+	
 		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 		 out=f1.toJson(temp2);
 		 return out;
@@ -261,7 +277,7 @@ public static List<Productlist> getproductlist2()
 		boolean a=false;
 		String l;
 		
-		
+		try{
 		
 		for(Farmerdata r:col)
 		{
@@ -273,7 +289,13 @@ public static List<Productlist> getproductlist2()
 				col3.add(d1);
 				a=true;
 	      }
-	  	}
+		}
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+		
     	
 		return a;
 	}
@@ -329,7 +351,7 @@ public static List<Productlist> getproductlist2()
 		temp1=Customerser.getorderlist();
 		temp2=Customerser.getcustomer();
 		Report1 rep1=new Report1();
-		
+		try{
 		if(s1==701)
 		{
 			rep1.setFrid(s1);
@@ -389,7 +411,12 @@ public static List<Productlist> getproductlist2()
 			}
 			}
 		rep1.setOrders(ordl);	
-		
+		}
+	
+	catch(Exception e)
+	{
+		return "[]";
+	}
 		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 		 out=f1.toJson(rep1);
 		return out;
@@ -423,12 +450,13 @@ public static List<Productlist> getproductlist2()
 			 enddate=df1.parse(st2);
 		} catch (ParseException e) {
 			
-			e.printStackTrace();
+			return "[]";
 		}
 		Calendar start = Calendar.getInstance();
 		start.setTime(startdate);
 		Calendar end = Calendar.getInstance();
 		end.setTime(enddate);
+	try{
 		if(s1==703)
 		{
 			
@@ -474,11 +502,17 @@ public static List<Productlist> getproductlist2()
 		rep1.setOrders_placed(t1);
 		rep1.setDelivery_revenue(d1);
 		rep1.setOrders_delivered(t3);
+		
 		Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 		 out=f1.toJson(rep1);
 		return out;
-		
 		}
+	}
+	catch(Exception e)
+	{
+		return "[]";
+	}
+	try{
 		if(s1==704)
 		{
 			for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1),date = start.getTime())
@@ -499,7 +533,13 @@ public static List<Productlist> getproductlist2()
 			 out=f1.toJson(temp1);
 			return out;
 		}
-		return "";
+		return "[]";
+	}
+	catch(Exception e)
+	{
+		return "[]";
+	}
+	
 	}
 	@Override
 	public String getreport1(String s, int s1) {
@@ -511,7 +551,7 @@ public static List<Productlist> getproductlist2()
 		List<OrderReport> temp=new ArrayList<OrderReport>();
 		temp=Customerser.getorderlist();
 		List<OrderReport> temp1=new ArrayList<OrderReport>();
-
+try{
 		if(s1==703)
 		{
 		rep1.setFrid(s1);
@@ -545,6 +585,12 @@ public static List<Productlist> getproductlist2()
 		return out;
 		
 		}
+}
+catch(Exception e)
+{
+	return "[]";
+}
+try{
 		if(s1==704)
 		{
 		
@@ -561,7 +607,12 @@ public static List<Productlist> getproductlist2()
 			Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 			 out=f1.toJson(temp1);
 			return out;
-	}
+}
+catch(Exception e)
+{
+	return "[]";
+}	
+}
 	public void reset() {
 		col.clear();
 		col1.clear();

@@ -119,7 +119,7 @@ public class Managerscope implements Managersupport {
 		managereport12 rep1=new managereport12();
 		List<OrderReport> temp1=new ArrayList<OrderReport>();
 		temp1=Customerser.getorderlist();
-		
+	try{	
 	  if(s1==1)
 	  {
 		  key=getcurrentdate();
@@ -166,6 +166,7 @@ public class Managerscope implements Managersupport {
 			  rep1.setOrders_open(t1);
 			  rep1.setOrders_cancelled(t3);
 		  }
+	
 		  else
 		  {
 			  Date enddate=new Date();
@@ -215,12 +216,17 @@ public class Managerscope implements Managersupport {
 					  rep1.setOrders_open(t1);
 					  rep1.setOrders_cancelled(t3);	
 		  }
-		  
+	}
+	catch(Exception e)
+	{
+		return "[]";
+	}
 	  
 		Gson f = new GsonBuilder().setPrettyPrinting().create();
 		 out=f.toJson(rep1);
 		return out;
 	}
+	
 	//manager report type 4 and 3
 	@Override
 	public String getreportt2(int s1, String s2, String s3) {
@@ -233,6 +239,7 @@ public class Managerscope implements Managersupport {
 		int t4=0,t5=0,t6=0,t7=0;
 		double d5=0.0d,d6=0.0d,d7=0.0d,d8 = 0,d9=0.0d;
 		 managerreport45 rep1=new managerreport45();
+		 try{
 		 if(s2==null||s3==null)
 		 {
 			 if(s1==3)
@@ -516,7 +523,7 @@ public class Managerscope implements Managersupport {
 					t7=t7+t;
 					t5=t5+t1;
 					t6=t6+t2;
-					d5=d5+d;
+					d5=d5+d; 
 					d6=d6+d1;
 					d7=d7+d2;
 					d8=d8+d3;
@@ -534,11 +541,17 @@ public class Managerscope implements Managersupport {
 				 rep1.setTotal_products_revenue(d7);
 				 rep1.setTotal_lftu_fees(d8);
 				 rep1.setTotal_payable_to_farms(d9);
+		 
 				 Gson f = new GsonBuilder().setPrettyPrinting().create();
 				 out=f.toJson(rep1);
 				return out;
-			 
+		
 		 }
+		 }
+			catch(Exception e)
+			{
+				return "[]";
+			}
 		 return "[]";
 	}
 	
@@ -547,7 +560,8 @@ public class Managerscope implements Managersupport {
 	public String addcat(catalogmange use1) {
 	
 	String out;
-	
+	try
+	{
 	//adding to a list to have concolidated one.
 	col.add(use1);
 	
@@ -559,7 +573,11 @@ public class Managerscope implements Managersupport {
 	Gson f1 = new GsonBuilder().setPrettyPrinting().create();
 	 out=f1.toJson(g);
 	 return out;	
-	 
+	}
+	catch(Exception e)
+	{
+		return "[]";
+	}
 	}
 //catalog list
 	@Override
@@ -573,7 +591,7 @@ public class Managerscope implements Managersupport {
 	@Override
 	public boolean update(String s, catalogmange d)  {
 		boolean b1=false;
-		
+		try {
 		for(catalogmange h:col)
 		{ 
 			String check=h.getGcpid();
@@ -591,7 +609,11 @@ public class Managerscope implements Managersupport {
 		
 		return b1;
 	}
-	
+		catch(Exception e)
+		{
+			return false;
+		}
+	}
 	public static  String getnextday()
 	{
 		

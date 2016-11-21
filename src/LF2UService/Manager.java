@@ -75,6 +75,10 @@ public class Manager {
 		Gson f = new Gson();
 		use1=f.fromJson(out1.toString(), catalogmange.class);
 		out=use.addcat(use1);
+		if(out=="[]")
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("productnot added invalid data").build();
+		}
 		
 	return Response.status(201).entity(out).build();
 	}

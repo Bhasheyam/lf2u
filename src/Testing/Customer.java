@@ -202,7 +202,7 @@ public class Customer {
 		p.setDelivery_note("successu");
 		p.setFid("1");
 		o.setamount(2);
-		o.setFspid("1");
+		o.setFspid("1"); 
 		oa[0]=o;
 		p.setOrder_detail(oa);
 		s.createorder("1", p);
