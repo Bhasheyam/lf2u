@@ -224,9 +224,9 @@ public class Farmertest {
 		
 		
 		
-//		catalogmange ca=new catalogmange();
-//		ca.setName("potato");
-		//m.addcat(ca);
+catalogmange ca=new catalogmange();
+ca.setName("potato");
+		m.addcat(ca);
 		String[] fp={"60010", "60011"};
 		fi.setName("boss");
 		fi.setPhone("8089842432");
