@@ -91,7 +91,7 @@
         <pathelement location="WebContent/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
     </path>
     <path id="EAR Libraries.libraryclasspath"/>
-    <path id="OODP-Project.classpath">
+    <path id="lf2u.classpath">
         <pathelement location="build/classes"/>
         <path refid="Apache Tomcat v8.5 [Apache Tomcat v8.5].libraryclasspath"/>
         <path refid="Web App Libraries.libraryclasspath"/>
