@@ -376,7 +376,7 @@ public class Farmertest {
 		p.setOrder_detail(oa);
 		s.createorder("1", p);
 		String g=f.getreport("1", 702);
-		boolean a1= Pattern.compile(Pattern.quote("1"), Pattern.CASE_INSENSITIVE).matcher(g).find();
+		boolean a1= Pattern.compile(Pattern.quote("702"), Pattern.CASE_INSENSITIVE).matcher(g).find();
         assertEquals(a1,true);
 	}
 
