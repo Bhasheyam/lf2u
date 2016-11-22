@@ -19,6 +19,7 @@ import DataGeneration.Ordered_by;
 import DataGeneration.Productdetails;
 import DataGeneration.Report;
 import DataGeneration.Report1;
+import DataGeneration.catalogmange;
 import DataGeneration.orders;
 import DataGeneration.report3;
 import LF2UService.Farmersupport;
@@ -158,6 +159,19 @@ public static List<Productlist> getproductlist2()
 	}
 	@Override
 	public String createprod(String s, Productdetails  prod) {
+		boolean a=false;
+		List<catalogmange> temp=new ArrayList<catalogmange>();
+		temp=Managerscope.getlist();
+		for(catalogmange hg:temp)
+		{
+			String sk=prod.getGcpid();
+			if(sk.equals(hg.getGcpid()))
+			{
+				a=true;
+			}
+		}
+		if(a=true)
+		{
 		String out,c;	
 		c=prod.getfspid();
 		col1.add(prod);
@@ -172,7 +186,8 @@ public static List<Productlist> getproductlist2()
 		Gson f=new GsonBuilder().setPrettyPrinting().create();
 		out=f.toJson(fs);
 		return out;
-		
+	}
+	return "[]";	
 	}
 	@Override
 	public boolean updateproductinfo(String s, String s1, Productdetails pd) {

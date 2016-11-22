@@ -169,7 +169,15 @@ public class Farmer {
 		Gson g=new Gson();
 		prod=g.fromJson(b.toString(), Productdetails.class);
 		out=use.createprod(s,prod);
-		return Response.status(200).entity(out).build();
+		if(out.equals("[]"))
+		{
+			return Response.status(Response.Status.NOT_FOUND).entity("No product found in the catalogue with  GCPID").build();
+		}
+		else
+		{
+			return Response.status(200).entity(out).build();
+		}
+		
 	}
 	
 	@Path("/{fid}/products/{fspid}")
