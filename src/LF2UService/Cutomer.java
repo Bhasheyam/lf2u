@@ -25,7 +25,7 @@ import Service.Customerser;
 
 
 
-@Path("/Customer")
+@Path("/customer")
 public class Cutomer {
 	Customersupport use=new Customerser();
 	

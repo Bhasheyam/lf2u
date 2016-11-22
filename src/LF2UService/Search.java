@@ -18,7 +18,7 @@ public class Search {
 	public Response getdetails(@QueryParam("topic")String topic,@QueryParam("key")String key)
 	{
 		String out;
-		if(topic.isEmpty())
+		if(topic==null||key==null)
 		{
 			return Response.status(Response.Status.NOT_FOUND).entity("key or value is null").build();
 			

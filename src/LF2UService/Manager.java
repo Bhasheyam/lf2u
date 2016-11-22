@@ -23,7 +23,7 @@ import com.google.gson.Gson;
 import DataGeneration.catalogmange;
 import Service.Managerscope;
 
-@Path("/manager")
+@Path("/managers")
 
 public class Manager {
 	

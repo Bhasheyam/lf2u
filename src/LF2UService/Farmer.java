@@ -25,7 +25,7 @@ import DataGeneration.Productdetails;
 import Service.Farmservice;
 import dataList.Delivery;
 
-@Path("/Farmer")
+@Path("/farmers")
 public class Farmer {
 	
 	Farmersupport use=new Farmservice();
